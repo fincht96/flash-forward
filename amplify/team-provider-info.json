@@ -1,0 +1,45 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-flashforward-dev-110057-authRole",
+      "UnauthRoleArn": "arn:aws:iam::385321484302:role/amplify-flashforward-dev-110057-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::385321484302:role/amplify-flashforward-dev-110057-authRole",
+      "Region": "eu-west-2",
+      "DeploymentBucketName": "amplify-flashforward-dev-110057-deployment",
+      "UnauthRoleName": "amplify-flashforward-dev-110057-unauthRole",
+      "StackName": "amplify-flashforward-dev-110057",
+      "StackId": "arn:aws:cloudformation:eu-west-2:385321484302:stack/amplify-flashforward-dev-110057/9efdaa60-b62d-11eb-9af5-0a7c1a6941d4",
+      "AmplifyAppId": "d2bp9jg07khtse"
+    },
+    "categories": {
+      "auth": {
+        "flashforward352e105c": {
+          "userPoolId": "eu-west-2_vq2b9R8TI",
+          "userPoolName": "flash-forward",
+          "webClientId": "617397ib8ok11ned6mcgfd20ih",
+          "nativeClientId": "617397ib8ok11ned6mcgfd20ih",
+          "identityPoolId": "eu-west-2:de1f4373-8b77-44b8-b2d1-a99e2561dc11",
+          "identityPoolName": "flashforward",
+          "allowUnauthenticatedIdentities": false,
+          "authRoleArn": "arn:aws:iam::385321484302:role/Cognito_flashforwardAuth_Role",
+          "authRoleName": "Cognito_flashforwardAuth_Role",
+          "unauthRoleArn": "arn:aws:iam::385321484302:role/Cognito_flashforwardUnauth_Role",
+          "unauthRoleName": "Cognito_flashforwardUnauth_Role"
+        },
+        "flashforwarded2f3b66": {
+          "userPoolId": "eu-west-2_vq2b9R8TI",
+          "userPoolName": "flash-forward",
+          "webClientId": "617397ib8ok11ned6mcgfd20ih",
+          "nativeClientId": "617397ib8ok11ned6mcgfd20ih",
+          "identityPoolId": "eu-west-2:de1f4373-8b77-44b8-b2d1-a99e2561dc11",
+          "identityPoolName": "flashforward",
+          "allowUnauthenticatedIdentities": false,
+          "authRoleArn": "arn:aws:iam::385321484302:role/Cognito_flashforwardAuth_Role",
+          "authRoleName": "Cognito_flashforwardAuth_Role",
+          "unauthRoleArn": "arn:aws:iam::385321484302:role/Cognito_flashforwardUnauth_Role",
+          "unauthRoleName": "Cognito_flashforwardUnauth_Role"
+        }
+      }
+    }
+  }
+}

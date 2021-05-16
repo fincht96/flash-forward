@@ -1,0 +1,11 @@
+{
+  "AppSyncApiName": "flashforward",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authflashforwarded2f3b66",
+      "Outputs.UserPoolId"
+    ]
+  }
+}

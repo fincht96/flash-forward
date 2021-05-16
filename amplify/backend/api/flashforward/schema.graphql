@@ -1,0 +1,55 @@
+
+type User @model 
+@auth(rules: [{ allow: owner, operations: [create, delete, update] }])
+{
+  id: ID!
+  firstName: String
+  lastName: String
+  bio: String
+  Location: String
+  username: String
+  folders: [Folder] @connection(keyName: "byUser", fields: ["id"])
+}
+
+
+type Folder @model 
+@key(name: "byUser", fields: ["userID"]) 
+@auth(rules: [{ allow: owner, operations: [create, delete, update] }])
+{
+  id: ID!
+  name: String!
+  description: String
+  tags: [String]
+  userID: ID!
+  user: User @connection(fields: ["userID"])
+  sets: [Set] @connection(keyName: "byFolder", fields: ["id"])
+}
+
+type Set @model 
+@key(name: "byFolder", fields: ["folderID"]) 
+@auth(rules: [{ allow: owner, operations: [create, delete, update] }])
+{
+  id: ID!
+  name: String!
+  description: String
+  folderID: ID!
+  folder: Folder @connection(fields: ["folderID"])
+  cards: [Card] @connection(keyName: "bySet", fields: ["id"])
+}
+
+type Card @model
+@key(name: "bySet", fields: ["setID"])
+@auth(rules: [{ allow: owner, operations: [create, delete, update] }])
+{
+  id: ID!
+  setID: ID!
+  set: Set @connection(fields: ["setID"])
+  question: String
+  answer: String
+  flagged: Boolean
+}
+
+
+
+
+
