@@ -1,6 +1,99 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const createUser = /* GraphQL */ `
+  mutation CreateUser(
+    $input: CreateUserInput!
+    $condition: ModelUserConditionInput
+  ) {
+    createUser(input: $input, condition: $condition) {
+      id
+      firstName
+      lastName
+      bio
+      Location
+      username
+      folders {
+        items {
+          id
+          name
+          description
+          tags
+          userID
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const updateUser = /* GraphQL */ `
+  mutation UpdateUser(
+    $input: UpdateUserInput!
+    $condition: ModelUserConditionInput
+  ) {
+    updateUser(input: $input, condition: $condition) {
+      id
+      firstName
+      lastName
+      bio
+      Location
+      username
+      folders {
+        items {
+          id
+          name
+          description
+          tags
+          userID
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const deleteUser = /* GraphQL */ `
+  mutation DeleteUser(
+    $input: DeleteUserInput!
+    $condition: ModelUserConditionInput
+  ) {
+    deleteUser(input: $input, condition: $condition) {
+      id
+      firstName
+      lastName
+      bio
+      Location
+      username
+      folders {
+        items {
+          id
+          name
+          description
+          tags
+          userID
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
 export const createFolder = /* GraphQL */ `
   mutation CreateFolder(
     $input: CreateFolderInput!
@@ -11,6 +104,21 @@ export const createFolder = /* GraphQL */ `
       name
       description
       tags
+      userID
+      user {
+        id
+        firstName
+        lastName
+        bio
+        Location
+        username
+        folders {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
       sets {
         items {
           id
@@ -39,6 +147,21 @@ export const updateFolder = /* GraphQL */ `
       name
       description
       tags
+      userID
+      user {
+        id
+        firstName
+        lastName
+        bio
+        Location
+        username
+        folders {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
       sets {
         items {
           id
@@ -67,6 +190,21 @@ export const deleteFolder = /* GraphQL */ `
       name
       description
       tags
+      userID
+      user {
+        id
+        firstName
+        lastName
+        bio
+        Location
+        username
+        folders {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
       sets {
         items {
           id
@@ -100,6 +238,18 @@ export const createSet = /* GraphQL */ `
         name
         description
         tags
+        userID
+        user {
+          id
+          firstName
+          lastName
+          bio
+          Location
+          username
+          createdAt
+          updatedAt
+          owner
+        }
         sets {
           nextToken
         }
@@ -113,6 +263,7 @@ export const createSet = /* GraphQL */ `
           setID
           question
           answer
+          flagged
           createdAt
           updatedAt
           owner
@@ -140,6 +291,18 @@ export const updateSet = /* GraphQL */ `
         name
         description
         tags
+        userID
+        user {
+          id
+          firstName
+          lastName
+          bio
+          Location
+          username
+          createdAt
+          updatedAt
+          owner
+        }
         sets {
           nextToken
         }
@@ -153,6 +316,7 @@ export const updateSet = /* GraphQL */ `
           setID
           question
           answer
+          flagged
           createdAt
           updatedAt
           owner
@@ -180,6 +344,18 @@ export const deleteSet = /* GraphQL */ `
         name
         description
         tags
+        userID
+        user {
+          id
+          firstName
+          lastName
+          bio
+          Location
+          username
+          createdAt
+          updatedAt
+          owner
+        }
         sets {
           nextToken
         }
@@ -193,6 +369,7 @@ export const deleteSet = /* GraphQL */ `
           setID
           question
           answer
+          flagged
           createdAt
           updatedAt
           owner
@@ -223,6 +400,7 @@ export const createCard = /* GraphQL */ `
           name
           description
           tags
+          userID
           createdAt
           updatedAt
           owner
@@ -236,6 +414,7 @@ export const createCard = /* GraphQL */ `
       }
       question
       answer
+      flagged
       createdAt
       updatedAt
       owner
@@ -260,6 +439,7 @@ export const updateCard = /* GraphQL */ `
           name
           description
           tags
+          userID
           createdAt
           updatedAt
           owner
@@ -273,6 +453,7 @@ export const updateCard = /* GraphQL */ `
       }
       question
       answer
+      flagged
       createdAt
       updatedAt
       owner
@@ -297,6 +478,7 @@ export const deleteCard = /* GraphQL */ `
           name
           description
           tags
+          userID
           createdAt
           updatedAt
           owner
@@ -310,6 +492,7 @@ export const deleteCard = /* GraphQL */ `
       }
       question
       answer
+      flagged
       createdAt
       updatedAt
       owner

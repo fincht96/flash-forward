@@ -1,6 +1,90 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onCreateUser = /* GraphQL */ `
+  subscription OnCreateUser {
+    onCreateUser {
+      id
+      firstName
+      lastName
+      bio
+      Location
+      username
+      folders {
+        items {
+          id
+          name
+          description
+          tags
+          userID
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onUpdateUser = /* GraphQL */ `
+  subscription OnUpdateUser {
+    onUpdateUser {
+      id
+      firstName
+      lastName
+      bio
+      Location
+      username
+      folders {
+        items {
+          id
+          name
+          description
+          tags
+          userID
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onDeleteUser = /* GraphQL */ `
+  subscription OnDeleteUser {
+    onDeleteUser {
+      id
+      firstName
+      lastName
+      bio
+      Location
+      username
+      folders {
+        items {
+          id
+          name
+          description
+          tags
+          userID
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
 export const onCreateFolder = /* GraphQL */ `
   subscription OnCreateFolder {
     onCreateFolder {
@@ -8,6 +92,21 @@ export const onCreateFolder = /* GraphQL */ `
       name
       description
       tags
+      userID
+      user {
+        id
+        firstName
+        lastName
+        bio
+        Location
+        username
+        folders {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
       sets {
         items {
           id
@@ -33,6 +132,21 @@ export const onUpdateFolder = /* GraphQL */ `
       name
       description
       tags
+      userID
+      user {
+        id
+        firstName
+        lastName
+        bio
+        Location
+        username
+        folders {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
       sets {
         items {
           id
@@ -58,6 +172,21 @@ export const onDeleteFolder = /* GraphQL */ `
       name
       description
       tags
+      userID
+      user {
+        id
+        firstName
+        lastName
+        bio
+        Location
+        username
+        folders {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
       sets {
         items {
           id
@@ -88,6 +217,18 @@ export const onCreateSet = /* GraphQL */ `
         name
         description
         tags
+        userID
+        user {
+          id
+          firstName
+          lastName
+          bio
+          Location
+          username
+          createdAt
+          updatedAt
+          owner
+        }
         sets {
           nextToken
         }
@@ -101,6 +242,7 @@ export const onCreateSet = /* GraphQL */ `
           setID
           question
           answer
+          flagged
           createdAt
           updatedAt
           owner
@@ -125,6 +267,18 @@ export const onUpdateSet = /* GraphQL */ `
         name
         description
         tags
+        userID
+        user {
+          id
+          firstName
+          lastName
+          bio
+          Location
+          username
+          createdAt
+          updatedAt
+          owner
+        }
         sets {
           nextToken
         }
@@ -138,6 +292,7 @@ export const onUpdateSet = /* GraphQL */ `
           setID
           question
           answer
+          flagged
           createdAt
           updatedAt
           owner
@@ -162,6 +317,18 @@ export const onDeleteSet = /* GraphQL */ `
         name
         description
         tags
+        userID
+        user {
+          id
+          firstName
+          lastName
+          bio
+          Location
+          username
+          createdAt
+          updatedAt
+          owner
+        }
         sets {
           nextToken
         }
@@ -175,6 +342,7 @@ export const onDeleteSet = /* GraphQL */ `
           setID
           question
           answer
+          flagged
           createdAt
           updatedAt
           owner
@@ -202,6 +370,7 @@ export const onCreateCard = /* GraphQL */ `
           name
           description
           tags
+          userID
           createdAt
           updatedAt
           owner
@@ -215,6 +384,7 @@ export const onCreateCard = /* GraphQL */ `
       }
       question
       answer
+      flagged
       createdAt
       updatedAt
       owner
@@ -236,6 +406,7 @@ export const onUpdateCard = /* GraphQL */ `
           name
           description
           tags
+          userID
           createdAt
           updatedAt
           owner
@@ -249,6 +420,7 @@ export const onUpdateCard = /* GraphQL */ `
       }
       question
       answer
+      flagged
       createdAt
       updatedAt
       owner
@@ -270,6 +442,7 @@ export const onDeleteCard = /* GraphQL */ `
           name
           description
           tags
+          userID
           createdAt
           updatedAt
           owner
@@ -283,6 +456,7 @@ export const onDeleteCard = /* GraphQL */ `
       }
       question
       answer
+      flagged
       createdAt
       updatedAt
       owner

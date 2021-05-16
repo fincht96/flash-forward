@@ -1,6 +1,59 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const getUser = /* GraphQL */ `
+  query GetUser($id: ID!) {
+    getUser(id: $id) {
+      id
+      firstName
+      lastName
+      bio
+      Location
+      username
+      folders {
+        items {
+          id
+          name
+          description
+          tags
+          userID
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const listUsers = /* GraphQL */ `
+  query ListUsers(
+    $filter: ModelUserFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        firstName
+        lastName
+        bio
+        Location
+        username
+        folders {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+  }
+`;
 export const getFolder = /* GraphQL */ `
   query GetFolder($id: ID!) {
     getFolder(id: $id) {
@@ -8,6 +61,21 @@ export const getFolder = /* GraphQL */ `
       name
       description
       tags
+      userID
+      user {
+        id
+        firstName
+        lastName
+        bio
+        Location
+        username
+        folders {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
       sets {
         items {
           id
@@ -38,6 +106,18 @@ export const listFolders = /* GraphQL */ `
         name
         description
         tags
+        userID
+        user {
+          id
+          firstName
+          lastName
+          bio
+          Location
+          username
+          createdAt
+          updatedAt
+          owner
+        }
         sets {
           nextToken
         }
@@ -61,6 +141,18 @@ export const getSet = /* GraphQL */ `
         name
         description
         tags
+        userID
+        user {
+          id
+          firstName
+          lastName
+          bio
+          Location
+          username
+          createdAt
+          updatedAt
+          owner
+        }
         sets {
           nextToken
         }
@@ -74,6 +166,7 @@ export const getSet = /* GraphQL */ `
           setID
           question
           answer
+          flagged
           createdAt
           updatedAt
           owner
@@ -103,6 +196,7 @@ export const listSets = /* GraphQL */ `
           name
           description
           tags
+          userID
           createdAt
           updatedAt
           owner
@@ -133,6 +227,7 @@ export const getCard = /* GraphQL */ `
           name
           description
           tags
+          userID
           createdAt
           updatedAt
           owner
@@ -146,6 +241,7 @@ export const getCard = /* GraphQL */ `
       }
       question
       answer
+      flagged
       createdAt
       updatedAt
       owner
@@ -173,6 +269,7 @@ export const listCards = /* GraphQL */ `
         }
         question
         answer
+        flagged
         createdAt
         updatedAt
         owner
