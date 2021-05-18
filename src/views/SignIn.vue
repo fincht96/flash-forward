@@ -1,11 +1,51 @@
 <template>
-  <div class="about">
-    <h1>This is the sign in page</h1>
+  <div class="signin">
+    <img class="ff-logo" alt="flash-forward logo" src="../assets/ff_logo.png" />
+    <h1 class="heading">Sign in to flash-forward</h1>
+
+    <!-- <button class="sign-in-btn">
+      <img src="../assets/btn_google_icon.png" alt="google sign in button" />
+      <div>Sign in with Google</div>
+    </button> -->
+
+    <img
+      class="google-icon"
+      src="../assets/google_sign_in_btn_light.png"
+      alt="google sign in button"
+    />
+
+    <p class="privacy-msg">
+      Sign in to save your progress. Don’t worry nothing is shared on any social
+      media.
+    </p>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.about {
-  border: solid red 1px;
+.ff-logo {
+  width: 120px;
+  margin-top: 100px;
+  margin-bottom: 25px;
+}
+
+.heading {
+  font-size: 24px;
+  color: #666666;
+  font-weight: 400;
+  margin-bottom: 100px;
+}
+
+.google-icon {
+  width: 300px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.privacy-msg {
+  margin: 0 auto;
+  color: #808080;
+  font-size: 14px;
+  width: 300px;
+  text-align: left;
 }
 </style>
