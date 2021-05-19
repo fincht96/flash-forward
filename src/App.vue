@@ -14,6 +14,79 @@
   <router-view />
 </template>
 
+<script>
+import { Auth } from "@aws-amplify/auth";
+import { Hub } from "aws-amplify";
+import store from "./store";
+
+export default {
+  name: "App",
+  async created() {},
+
+  mounted() {
+    console.log("mounted");
+
+    Hub.listen("auth", (data) => {
+      const { payload } = data;
+      this.onAuthEvent(payload);
+
+      console.log(payload);
+
+      switch (payload.event) {
+        case "signIn":
+          // this.user = payload.data;
+          // store.dispatch("setUser", payload.data);
+          break;
+        case "signOut":
+          // this.user = null;
+          store.dispatch("setUser", null);
+          break;
+        case "customOAuthState":
+          this.customState = payload.data;
+          break;
+
+        default:
+          break;
+      }
+    });
+
+    Auth.currentAuthenticatedUser()
+      .then((user) => {
+        console.log("user signed in ", user);
+        // this.user = user;
+        store.dispatch("setUser", user);
+      })
+      .catch(() => console.log("Not signed in"));
+  },
+
+  data() {
+    return {
+      name: "",
+      description: "",
+      todos: [],
+      user: null,
+      customState: null,
+    };
+  },
+
+  methods: {
+    onOpenGoogleSignIn() {
+      console.log("google sign in ");
+      Auth.federatedSignIn({ provider: "Google" });
+    },
+
+    signOut() {
+      console.log("google sign out ");
+      Auth.signOut();
+    },
+
+    onAuthEvent(payload) {
+      console.log("auth event ", payload);
+    },
+  },
+};
+</script>
+
 <style lang="scss">
 $main-font-size: 16px;
 

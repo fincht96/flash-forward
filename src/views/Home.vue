@@ -39,6 +39,7 @@
 </template>
 
 <script>
+import store from "../store";
 // @ is an alias to /src
 import FeatureCards from "@/components/FeatureCards.vue";
 
@@ -47,6 +48,19 @@ export default {
   components: {
     FeatureCards,
   },
+
+  async created() {},
+
+  mounted() {
+    console.log("home mounted, user", store.state.user);
+    console.log("home mounted, username", store.state.user.username);
+  },
+
+  data() {
+    return {};
+  },
+
+  methods: {},
 };
 </script>
 

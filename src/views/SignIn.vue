@@ -9,6 +9,7 @@
     </button> -->
 
     <img
+      v-on:click="onGoogleSignIn()"
       class="google-icon"
       src="../assets/google_sign_in_btn_light.png"
       alt="google sign in button"
@@ -20,6 +21,60 @@
     </p>
   </div>
 </template>
+
+<script>
+import { Auth } from "@aws-amplify/auth";
+
+
+export default {
+  name: "App",
+  async created() {},
+
+  mounted() {
+    console.log("mounted sign in");
+
+    // Hub.listen("auth", (data) => {
+    //   const { payload } = data;
+    //   this.onAuthEvent(payload);
+
+    //   console.log(payload);
+
+    //   switch (payload.event) {
+    //     case "signIn":
+    //       this.user = payload.data;
+    //       break;
+    //     case "signOut":
+    //       this.user = null;
+    //       break;
+    //     case "customOAuthState":
+    //       this.customState = payload.data;
+    //       break;
+
+    //     default:
+    //       break;
+    //   }
+    // });
+
+    // Auth.currentAuthenticatedUser()
+    //   .then((user) => {
+    //     console.log("user signed in ", user);
+    //     this.user = user;
+    //   })
+    //   .catch(() => console.log("Not signed in"));
+  },
+
+  data() {
+    return {};
+  },
+
+  methods: {
+    onGoogleSignIn() {
+      console.log("google sign in ");
+      Auth.federatedSignIn({ provider: "Google" });
+    },
+  },
+};
+</script>
 
 <style lang="scss" scoped>
 .ff-logo {
