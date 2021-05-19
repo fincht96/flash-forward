@@ -1,6 +1,6 @@
 <template>
   <div class="signin">
-    <img class="ff-logo" alt="flash-forward logo" src="../assets/ff_logo.png" />
+    <img class="ff-logo" alt="flash-forward logo" src="../../assets/ff_logo.png" />
     <h1 class="heading">Sign in to flash-forward</h1>
 
     <!-- <button class="sign-in-btn">
@@ -11,7 +11,7 @@
     <img
       v-on:click="onGoogleSignIn()"
       class="google-icon"
-      src="../assets/google_sign_in_btn_light.png"
+      src="../../assets/google_sign_in_btn_light.png"
       alt="google sign in button"
     />
 

@@ -3,13 +3,13 @@
     <img
       class="logo-img"
       alt="flash-forward logo"
-      src="../assets/ff_logo.png"
+      src="../../assets/ff_logo.png"
     />
 
     <img
       class="logo-watermark"
       alt="flash-forward logo"
-      src="../assets/ff_logo_outline.png"
+      src="../../assets/ff_logo_outline.png"
     />
 
     <div class="text-group">
@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import store from "../store";
+// import store from "../../store";
 // @ is an alias to /src
 import FeatureCards from "@/components/FeatureCards.vue";
 
@@ -52,8 +52,8 @@ export default {
   async created() {},
 
   mounted() {
-    console.log("home mounted, user", store.state.user);
-    console.log("home mounted, username", store.state.user.username);
+    // console.log("home mounted, user", store.state.user);
+    // console.log("home mounted, username", store.state.user.username);
   },
 
   data() {

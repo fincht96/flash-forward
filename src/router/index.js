@@ -1,13 +1,41 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Home from "../views/Home.vue";
-// import store from "../store";
+
+import HomeUnauth from "../views/unauth/Home.vue";
+import HomeAuth from "../views/auth/Home.vue";
+
+import store from "../store";
 
 const routes = [
   {
     path: "/",
-    name: "Home",
-    component: Home,
+    name: "HomeUnauth",
+    component: HomeUnauth,
+    beforeEnter: (to, from, next) => {
+      if (store.state.user) {
+        // next({ name: "UserRoot", params: { id: 3 } });
+        next({ name: "HomeAuth" });
+      } else {
+        next();
+      }
+    },
   },
+
+  {
+    path: "/",
+    name: "HomeAuth",
+    component: HomeAuth,
+    beforeEnter: (to, from, next) => {
+      if (!store.state.user) {
+        // next({ name: "UserRoot", params: { id: 3 } });
+        next({ name: "HomeUnauth" });
+      } else {
+        next();
+      }
+    },
+  },
+
+  // { path: "/", name: "HomeAuth", component: User },
+
   {
     path: "/explore",
     name: "Explore",
@@ -15,7 +43,7 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Explore.vue"),
+      import(/* webpackChunkName: "about" */ "../views/unauth/Explore.vue"),
   },
 
   {
@@ -25,7 +53,7 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/SignIn.vue"),
+      import(/* webpackChunkName: "about" */ "../views/unauth/SignIn.vue"),
   },
 ];
 

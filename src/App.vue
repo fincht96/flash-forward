@@ -1,5 +1,7 @@
 <template>
-  <nav id="nav">
+  <AuthNav v-if="user" />
+  <UnauthNav v-else />
+  <!-- <nav id="nav">
     <img src="./assets/ff_logo.png" width="120" alt="flash forward logo" />
     <router-link class="link" to="/">Why flash-forward?</router-link>
     <router-link class="link" to="/explore">Explore</router-link>
@@ -10,17 +12,24 @@
     </div>
 
     <router-link class="link" to="/signin">Sign in</router-link>
-  </nav>
+  </nav> -->
   <router-view />
 </template>
 
 <script>
 import { Auth } from "@aws-amplify/auth";
 import { Hub } from "aws-amplify";
+import AuthNav from "@/components/auth/NavBar.vue";
+import UnauthNav from "@/components/unauth/NavBar.vue";
+
 import store from "./store";
 
 export default {
   name: "App",
+  components: {
+    AuthNav,
+    UnauthNav,
+  },
   async created() {},
 
   mounted() {
@@ -64,9 +73,16 @@ export default {
       name: "",
       description: "",
       todos: [],
-      user: null,
+      // user: null,
       customState: null,
     };
+  },
+
+  computed: {
+    // a computed getter
+    user: function () {
+      return store.state.user;
+    },
   },
 
   methods: {
