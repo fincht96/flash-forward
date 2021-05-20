@@ -1,6 +1,8 @@
 <template>
   <nav id="nav">
-    <img src="../../assets/ff_logo.png" width="120" alt="flash forward logo" />
+    <router-link to="/"
+      ><img src="../../assets/ff_logo.png" width="120" alt="flash forward logo"
+    /></router-link>
     <router-link class="link" to="/">Why flash-forward?</router-link>
     <router-link class="link" to="/explore">Explore</router-link>
 

@@ -1,6 +1,8 @@
 <template>
   <nav id="nav">
-    <img src="../../assets/ff_logo.png" width="120" alt="flash forward logo" />
+    <router-link to="/"
+      ><img src="../../assets/ff_logo.png" width="120" alt="flash forward logo"
+    /></router-link>
     <router-link class="link" to="/explore">Explore</router-link>
     <router-link class="link" to="/activity">Activity</router-link>
 
@@ -10,18 +12,29 @@
     </div>
 
     <div class="dropdown">
-      <div class="user-icon">
+      <div
+        class="user-icon"
+        v-bind:class="{ active: showDropdown === true }"
+        v-on:click.self.stop="showDropdown = !showDropdown"
+      >
         {{ initials }}
       </div>
 
-      <!-- <div
-              id="myDropdown"
-              class="dropdown-content"
-              on:click|stopPropagation={() => {}}
-            >
-              <a href="." on:click|preventDefault={() => {}}>Settings</a>
-              <a href="." on:click|preventDefault={logout}>Logout</a>
-            </div> -->
+      <div
+        id="myDropdown"
+        class="dropdown-content"
+        v-if="showDropdown"
+        v-on:click.stop="
+          {
+          }
+        "
+      >
+        <div class="item seperator-bottom">Signed in as <b>fincht96</b></div>
+        <a class="item" href=".">Your folders</a>
+        <a class="item" href=".">Your sets</a>
+        <a class="item" href=".">Settings</a>
+        <a class="item seperator-top" href=".">Logout</a>
+      </div>
     </div>
   </nav>
 </template>
@@ -35,12 +48,30 @@ export default {
   name: "Nav",
   async created() {},
 
-  mounted() {},
+  mounted() {
+    window.addEventListener("click", () => {
+      this.showDropdown = false;
+    });
+  },
+
+  unmounted() {
+    window.removeEventListener("click");
+  },
 
   data() {
     return {
       initials: "TF",
+      showDropdown: false,
     };
+  },
+
+  methods: {
+    handler(event) {
+      console.log(
+        "Clicked outside (Using config), middleware returned true :)",
+        event
+      );
+    },
   },
 };
 </script>
@@ -146,9 +177,117 @@ $main-font-size: 16px;
       user-select: none; /* Standard */
     }
 
+    .active {
+      background-color: #c99ed8;
+    }
+
     .user-icon:hover {
       background-color: #c99ed8;
     }
+
+    .dropdown-content {
+      top: 50px;
+      margin-top: 10px;
+      padding: 0;
+      position: absolute;
+      background-color: #ffffff;
+      border: solid 1px #e6e6e6;
+      min-width: 160px;
+      overflow: auto;
+      right: 0;
+      z-index: 1;
+      border-radius: 8px;
+      animation: fadeIn ease 0.05s;
+      user-select: none; /* Standard */
+
+      .item {
+        text-align: left;
+        text-decoration: none;
+        font-size: 14px;
+        color: #666666;
+        display: block;
+
+        overflow-x: hidden; /* Disable horizontal scroll */
+        white-space: pre;
+
+        cursor: pointer;
+        padding: 12px 30px;
+        z-index: 2; /* Sit on top */
+      }
+
+      .seperator-top {
+        border-top: solid 1px #e6e6e6;
+      }
+
+      .seperator-bottom {
+        border-bottom: solid 1px #e6e6e6;
+      }
+
+      a:hover {
+        background: #44a8bd;
+        color: #ffffff;
+      }
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    @-moz-keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    @-webkit-keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    @-o-keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    @-ms-keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    // .dropdown-content a {
+    //   text-align: left;
+    //   text-decoration: none;
+    //   font-size: 14px;
+    //   color: #666666;
+    //   display: block;
+
+    //   overflow-x: hidden; /* Disable horizontal scroll */
+    //   white-space: pre;
+
+    //   cursor: pointer;
+    //   padding: 10px 30px;
+    //   z-index: 2; /* Sit on top */
+    // }
   }
 }
 </style>

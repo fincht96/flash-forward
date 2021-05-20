@@ -39,6 +39,4 @@ const updatedAwsConfig = {
 
 Amplify.configure(updatedAwsConfig);
 
-
-
 createApp(App).use(store).use(router).mount("#app");
