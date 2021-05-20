@@ -108,6 +108,11 @@ $main-font-size: 16px;
 
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap");
 
+body {
+  margin: 0;
+  padding: 0;
+}
+
 #app {
   // font-family: Avenir, Helvetica, Arial, sans-serif;
   font-family: "Roboto", sans-serif;
