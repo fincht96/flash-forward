@@ -1,7 +1,37 @@
 <template>
   <div class="home">
+    <div class="seperator"></div>
+
     <div class="layout">
-      <div class="profile-menu"></div>
+      <div class="profile-menu">
+        <div class="user-icon">
+          {{ initials }}
+        </div>
+
+        <div class="username">fincht96</div>
+
+        <div class="bio">Part flash card maker part biology student</div>
+
+        <button>Edit profile</button>
+
+        <div class="icon-text-group">
+          <img
+            class="icon"
+            src="../../assets/location_icon.png"
+            alt="location icon"
+          />
+          <div class="text">Manchester</div>
+        </div>
+
+        <div class="icon-text-group">
+          <img
+            class="icon"
+            src="../../assets/calendar_icon.png"
+            alt="location icon"
+          />
+          <div class="text">Joined July 2021</div>
+        </div>
+      </div>
 
       <div class="group-content">
         <div class="horizontal-menu">
@@ -34,7 +64,9 @@ export default {
   },
 
   data() {
-    return {};
+    return {
+      initials: "TF",
+    };
   },
 
   methods: {},
@@ -46,21 +78,93 @@ export default {
   width: 100%;
 
   .layout {
+    padding: 0 20px;
     margin: 0 auto;
-    max-width: 1400px;
+    max-width: 1200px;
     margin-top: 100px;
-    border: solid blue 1px;
+    // border: solid blue 1px;
     display: grid;
-    grid-template-columns: 0.3fr auto;
+    grid-template-columns: min-content auto;
     column-gap: 50px;
   }
 }
 
 .profile-menu {
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 200px;
   min-width: 175px;
-  height: 450px;
-  border: solid green 1px;
+  height: min-content;
+  padding-bottom: 20px;
+  border-bottom: solid #cccccc 1px;
+  align-items: center;
+
+  .user-icon {
+    cursor: pointer;
+    height: 200px;
+    width: 200px;
+    background-color: #f9e7ff;
+    border-radius: 50%;
+    display: inline-block;
+    line-height: 200px;
+    color: #666666;
+    font-size: 60px;
+    text-align: center;
+    user-select: none; /* Standard */
+
+    margin-bottom: 20px;
+  }
+
+  .username {
+    color: #666666;
+    font-size: 18px;
+    text-align: left;
+    font-weight: 300;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .bio {
+    color: #808080;
+    font-size: 16px;
+    text-align: left;
+    font-weight: 300;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  button {
+    color: #666666;
+    border: solid 1px #b0b0b0;
+    background: #f3f3f3;
+    border-radius: 5px;
+    font-weight: 300;
+    text-align: center;
+    margin-bottom: 20px;
+    width: 100%;
+    padding: 10px 5px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  .icon-text-group {
+    display: flex;
+    margin-right: auto;
+    margin-bottom: 20px;
+
+    .icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    .text {
+      margin: auto 0;
+      margin-left: 10px;
+      color: #808080;
+      font-size: 16px;
+      font-weight: 300;
+    }
+  }
 }
 
 .group-content {
@@ -73,7 +177,7 @@ export default {
     display: flex;
 
     justify-content: flex-start;
-    border: solid red 1px;
+    // border: solid red 1px;
 
     .menu-items {
       display: flex;
@@ -83,7 +187,7 @@ export default {
 
       .menu-item {
         padding: 15px 5px;
-        margin-right: 20px;
+        margin-right: 50px;
         font-weight: 300;
         color: #666666;
         font-size: 16px;
@@ -103,5 +207,13 @@ export default {
     border: solid orange 1px;
     height: 500px;
   }
+}
+
+.seperator {
+  border-bottom: solid 1px #e6e6e6;
+  top: 270px;
+  width: 100%;
+  position: absolute;
+  z-index: -1;
 }
 </style>

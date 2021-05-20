@@ -169,7 +169,7 @@ $main-font-size: 16px;
       cursor: pointer;
       height: 40px;
       width: 40px;
-      background-color: #edbaff;
+      background-color: #F9E7FF;
       border-radius: 50%;
       display: inline-block;
       line-height: 40px;
