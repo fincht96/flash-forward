@@ -2,39 +2,25 @@ import { createRouter, createWebHistory } from "vue-router";
 
 import HomeUnauth from "../views/unauth/Home.vue";
 import HomeAuth from "../views/auth/Home.vue";
+import { Auth } from "@aws-amplify/auth";
 
-import store from "../store";
+// import store from "../store";
 
 const routes = [
   {
     path: "/",
     name: "HomeUnauth",
     component: HomeUnauth,
-    beforeEnter: (to, from, next) => {
-      if (store.state.user) {
-        // next({ name: "UserRoot", params: { id: 3 } });
-        next({ name: "HomeAuth" });
-      } else {
-        next();
-      }
-    },
   },
 
   {
-    path: "/",
+    path: "/dashboard",
     name: "HomeAuth",
     component: HomeAuth,
-    beforeEnter: (to, from, next) => {
-      if (!store.state.user) {
-        // next({ name: "UserRoot", params: { id: 3 } });
-        next({ name: "HomeUnauth" });
-      } else {
-        next();
-      }
+    meta: {
+      requiresAuth: true,
     },
   },
-
-  // { path: "/", name: "HomeAuth", component: User },
 
   {
     path: "/explore",
@@ -44,6 +30,9 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/unauth/Explore.vue"),
+    meta: {
+      requiresAuth: true,
+    },
   },
 
   {
@@ -54,6 +43,9 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/unauth/SignIn.vue"),
+    meta: {
+      guest: true,
+    },
   },
 ];
 
@@ -61,5 +53,48 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
 });
+
+router.beforeResolve((to, from, next) => {
+  console.log("before resolve");
+
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    Auth.currentAuthenticatedUser()
+      .then(() => {
+        console.log("here auth");
+        next();
+      })
+      .catch(() => {
+        console.log("here");
+        next({
+          path: "/signin",
+        });
+      });
+  } else {
+    console.log("here 2");
+    next();
+  }
+});
+
+// router.beforeEach((to, from, next) => {
+
+//   // console.log("to", to);
+
+//   if (to.matched.some((record) => record.meta.requiresAuth)) {
+//     console.log("requires auth");
+
+//     if (store.state.user == null) {
+//       next({
+//         path: "/signin",
+//       });
+//     } else {
+//       next();
+//     }
+//   } else {
+//     console.log("requires !auth");
+
+//     console.log(to);
+//     next();
+//   }
+// });
 
 export default router;

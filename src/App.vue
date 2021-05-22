@@ -1,18 +1,6 @@
 <template>
   <AuthNav v-if="user" />
   <UnauthNav v-else />
-  <!-- <nav id="nav">
-    <img src="./assets/ff_logo.png" width="120" alt="flash forward logo" />
-    <router-link class="link" to="/">Why flash-forward?</router-link>
-    <router-link class="link" to="/explore">Explore</router-link>
-
-    <div class="search">
-      <i class="fa fa-search" />
-      <input type="text" placeholder="Search" />
-    </div>
-
-    <router-link class="link" to="/signin">Sign in</router-link>
-  </nav> -->
   <router-view />
 </template>
 
@@ -30,24 +18,39 @@ export default {
     AuthNav,
     UnauthNav,
   },
-  async created() {},
+  async created() {
+    try {
+      let user = await Auth.currentAuthenticatedUser();
+      store.dispatch("setUser", user);
+    } catch (e) {
+      store.dispatch("setUser", null);
+    }
+
+    // Auth.currentAuthenticatedUser()
+    //   .then((user) => {
+    //     // if (!store.state.user) {
+    //     //   this.$router.go();
+    //     // }
+    //     if (user) {
+    //       console.log("user signed in ");
+    //     } else {
+    //       console.log("user !signed in ");
+    //     }
+    //     store.dispatch("setUser", user);
+    //   })
+    //   .catch(() => console.log("Not signed in"));
+  },
 
   mounted() {
-    console.log("mounted");
-
     Hub.listen("auth", (data) => {
       const { payload } = data;
       this.onAuthEvent(payload);
 
-      console.log(payload);
-
       switch (payload.event) {
         case "signIn":
-          // this.user = payload.data;
-          // store.dispatch("setUser", payload.data);
+          store.dispatch("setUser", payload.data);
           break;
         case "signOut":
-          // this.user = null;
           store.dispatch("setUser", null);
           break;
         case "customOAuthState":
@@ -58,14 +61,6 @@ export default {
           break;
       }
     });
-
-    Auth.currentAuthenticatedUser()
-      .then((user) => {
-        console.log("user signed in ", user);
-        // this.user = user;
-        store.dispatch("setUser", user);
-      })
-      .catch(() => console.log("Not signed in"));
   },
 
   data() {
@@ -73,8 +68,8 @@ export default {
       name: "",
       description: "",
       todos: [],
-      // user: null,
       customState: null,
+      isReady: false,
     };
   },
 
@@ -86,16 +81,6 @@ export default {
   },
 
   methods: {
-    onOpenGoogleSignIn() {
-      console.log("google sign in ");
-      Auth.federatedSignIn({ provider: "Google" });
-    },
-
-    signOut() {
-      console.log("google sign out ");
-      Auth.signOut();
-    },
-
     onAuthEvent(payload) {
       console.log("auth event ", payload);
     },

@@ -33,13 +33,16 @@
         <a class="item" href=".">Your folders</a>
         <a class="item" href=".">Your sets</a>
         <a class="item" href=".">Settings</a>
-        <a class="item seperator-top" href=".">Logout</a>
+        <a class="item seperator-top" href="." v-on:click.prevent="onLogout"
+          >Logout</a
+        >
       </div>
     </div>
   </nav>
 </template>
 
 <script>
+import { Auth } from "@aws-amplify/auth";
 // import { Auth } from "@aws-amplify/auth";
 // import { Hub } from "aws-amplify";
 // import store from "../../store";
@@ -71,6 +74,11 @@ export default {
         "Clicked outside (Using config), middleware returned true :)",
         event
       );
+    },
+
+    onLogout() {
+      console.log("on logout");
+      Auth.signOut();
     },
   },
 };
@@ -169,7 +177,7 @@ $main-font-size: 16px;
       cursor: pointer;
       height: 40px;
       width: 40px;
-      background-color: #F9E7FF;
+      background-color: #f9e7ff;
       border-radius: 50%;
       display: inline-block;
       line-height: 40px;
