@@ -49,7 +49,7 @@
               v-bind:class="selectedRoute.name === 'Folders' ? 'selected' : ''"
             >
               <div class="name">Folders</div>
-              <div class="quant">2</div>
+              <div class="quant">986</div>
             </div>
             <div
               class="menu-item"
@@ -129,7 +129,7 @@ export default {
     padding: 0 20px;
     margin: 0 auto;
     max-width: 1200px;
-    margin-top: 100px;
+    margin-top: 50px;
     // border: solid blue 1px;
     display: grid;
     grid-template-columns: min-content auto;
@@ -253,9 +253,12 @@ export default {
           line-height: 20px;
           background: #f3f3f3;
           color: #666666;
-          border-radius: 50%;
-          width: 20px;
+          border-radius: 10px;
+          max-width: 50px;
+          min-width: 20px;
+          padding: 0 5px;
           height: 20px;
+          box-sizing: border-box;
         }
       }
 
@@ -280,7 +283,7 @@ export default {
 
 .seperator {
   border-bottom: solid 1px #e6e6e6;
-  top: 271px;
+  top: 221px;
   width: 100%;
   position: absolute;
   z-index: -1;

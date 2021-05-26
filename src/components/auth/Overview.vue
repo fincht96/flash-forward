@@ -10,7 +10,9 @@
         />
         <div class="text-group">
           <h3 class="title">Biology Chapter 2</h3>
-          <div class="details">10 sets | Updated 30 mins ago</div>
+          <div class="details">
+            10 sets <span class="spacer">|</span> Updated 30 mins ago
+          </div>
         </div>
       </div>
 
@@ -22,7 +24,9 @@
         />
         <div class="text-group">
           <h3 class="title">Physics Quantum Mechanics</h3>
-          <div class="details">10 sets | Updated 2 hours ago</div>
+          <div class="details">
+            10 sets <span class="spacer">|</span> Updated 2 hours ago
+          </div>
         </div>
       </div>
     </div>
@@ -35,7 +39,9 @@
         <img class="icon" src="../../assets/set_icon.png" alt="set icon" />
         <div class="text-group">
           <h3 class="title">Immune system</h3>
-          <div class="details">10 sets | Updated 45 mins ago</div>
+          <div class="details">
+            10 sets <span class="spacer">|</span> Updated 45 mins ago
+          </div>
         </div>
       </div>
 
@@ -43,7 +49,9 @@
         <img class="icon" src="../../assets/set_icon.png" alt="set icon" />
         <div class="text-group">
           <h3 class="title">Sub-atomic particles</h3>
-          <div class="details">67 sets | Updated 6 hours ago</div>
+          <div class="details">
+            67 sets <span class="spacer">|</span> Updated 6 hours ago
+          </div>
         </div>
       </div>
 
@@ -51,7 +59,9 @@
         <img class="icon" src="../../assets/set_icon.png" alt="set icon" />
         <div class="text-group">
           <h3 class="title">Cell biology</h3>
-          <div class="details">56 sets | Updated 18th Jan 2020</div>
+          <div class="details">
+            56 sets <span class="spacer">|</span> Updated 18th Jan 2020
+          </div>
         </div>
       </div>
     </div>
@@ -142,6 +152,12 @@ export default {
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+
+          .spacer {
+            padding: 0 10px;
+            font-weight: 400;
+            color: #cccccc;
+          }
         }
       }
     }
@@ -187,6 +203,12 @@ export default {
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+
+          .spacer {
+            padding: 0 10px;
+            font-weight: 400;
+            color: #cccccc;
+          }
         }
       }
     }
