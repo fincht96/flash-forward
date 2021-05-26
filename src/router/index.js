@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 
 import HomeUnauth from "../views/unauth/Home.vue";
 import HomeAuth from "../views/auth/Home.vue";
+
 import { Auth } from "@aws-amplify/auth";
 
 // import store from "../store";
@@ -11,6 +12,33 @@ const routes = [
     path: "/",
     name: "HomeUnauth",
     component: HomeUnauth,
+  },
+
+  {
+    path: "/overview",
+    name: "Overview",
+    component: HomeAuth,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+
+  {
+    path: "/folders",
+    name: "Folders",
+    component: HomeAuth,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+
+  {
+    path: "/sets",
+    name: "Sets",
+    component: HomeAuth,
+    meta: {
+      requiresAuth: true,
+    },
   },
 
   {

@@ -36,21 +36,35 @@
       <div class="group-content">
         <div class="horizontal-menu">
           <div class="menu-items">
-            <div class="menu-item selected">
+            <div
+              class="menu-item"
+              v-on:click="$router.push({ name: 'Overview' })"
+              v-bind:class="selectedRoute.name === 'Overview' ? 'selected' : ''"
+            >
               <div class="name">Overview</div>
             </div>
-            <div class="menu-item">
+            <div
+              class="menu-item"
+              v-on:click="$router.push({ name: 'Folders' })"
+              v-bind:class="selectedRoute.name === 'Folders' ? 'selected' : ''"
+            >
               <div class="name">Folders</div>
               <div class="quant">2</div>
             </div>
-            <div class="menu-item">
+            <div
+              class="menu-item"
+              v-on:click="$router.push({ name: 'Sets' })"
+              v-bind:class="selectedRoute.name === 'Sets' ? 'selected' : ''"
+            >
               <div class="name">Sets</div>
               <div class="quant">3</div>
             </div>
           </div>
         </div>
         <div class="content">
-          <Overview />
+          <Overview v-if="currentRoute.name === 'Overview'" />
+          <Folders v-if="currentRoute.name === 'Folders'" />
+          <Sets v-if="currentRoute.name === 'Sets'" />
         </div>
       </div>
     </div>
@@ -62,16 +76,36 @@
 // @ is an alias to /src
 
 import Overview from "@/components/auth/Overview.vue";
+import Folders from "@/components/auth/Folders.vue";
+import Sets from "@/components/auth/Sets.vue";
 
 export default {
   name: "Home",
   components: {
     Overview,
+    Folders,
+    Sets,
   },
 
-  async created() {},
+  async created() {
+    this.selectedRoute = this.currentRoute;
+  },
+
+  watch: {
+    currentRoute: function (val) {
+      this.selectedRoute = val;
+    },
+  },
+
+  computed: {
+    currentRoute() {
+      return this.$route;
+    },
+  },
 
   mounted() {
+    console.log(this.currentRoute.name);
+
     // console.log("home mounted, user", store.state.user);
     // console.log("home mounted, username", store.state.user.username);
   },
@@ -79,6 +113,7 @@ export default {
   data() {
     return {
       initials: "TF",
+      selectedRoute: "Overview",
     };
   },
 
@@ -206,7 +241,8 @@ export default {
         font-size: 16px;
         cursor: pointer;
         display: flex;
-        height: 20px;
+        min-height: 20px;
+        box-sizing: content-box;
 
         .name {
           margin-right: 10px;
@@ -232,6 +268,7 @@ export default {
         font-weight: 500;
         // color: #44a8bd;
         border-bottom: solid 3px #44a8bd;
+        pointer-events: none;
       }
     }
   }
