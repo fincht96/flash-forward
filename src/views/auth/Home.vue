@@ -36,82 +36,21 @@
       <div class="group-content">
         <div class="horizontal-menu">
           <div class="menu-items">
-            <div class="menu-item selected">Overview</div>
-            <div class="menu-item">Folders</div>
-            <div class="menu-item">Sets</div>
+            <div class="menu-item selected">
+              <div class="name">Overview</div>
+            </div>
+            <div class="menu-item">
+              <div class="name">Folders</div>
+              <div class="quant">2</div>
+            </div>
+            <div class="menu-item">
+              <div class="name">Sets</div>
+              <div class="quant">3</div>
+            </div>
           </div>
         </div>
-
         <div class="content">
-          <div class="overview-section">
-            <h1 class="heading">Recent folders</h1>
-            <div class="cards-group">
-              <div class="folder-card">
-                <img
-                  class="icon"
-                  src="../../assets/folder_icon.png"
-                  alt="folder icon"
-                />
-                <div class="text-group">
-                  <h3 class="title">Biology Chapter 2</h3>
-                  <div class="details">10 sets | Updated 30 mins ago</div>
-                </div>
-              </div>
-
-              <div class="folder-card">
-                <img
-                  class="icon"
-                  src="../../assets/folder_icon.png"
-                  alt="folder icon"
-                />
-                <div class="text-group">
-                  <h3 class="title">Physics Quantum Mechanics</h3>
-                  <div class="details">10 sets | Updated 2 hours ago</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="overview-section">
-            <h1 class="heading">Recent sets</h1>
-            <div class="cards-group">
-              <div class="set-card">
-                <img
-                  class="icon"
-                  src="../../assets/set_icon.png"
-                  alt="set icon"
-                />
-                <div class="text-group">
-                  <h3 class="title">Immune system</h3>
-                  <div class="details">10 sets | Updated 45 mins ago</div>
-                </div>
-              </div>
-
-              <div class="set-card">
-                <img
-                  class="icon"
-                  src="../../assets/set_icon.png"
-                  alt="set icon"
-                />
-                <div class="text-group">
-                  <h3 class="title">Sub-atomic particles</h3>
-                  <div class="details">67 sets | Updated 6 hours ago</div>
-                </div>
-              </div>
-
-              <div class="set-card">
-                <img
-                  class="icon"
-                  src="../../assets/set_icon.png"
-                  alt="set icon"
-                />
-                <div class="text-group">
-                  <h3 class="title">Cell biology</h3>
-                  <div class="details">56 sets | Updated 18th Jan 2020</div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <Overview />
         </div>
       </div>
     </div>
@@ -122,9 +61,13 @@
 // import store from "../../store";
 // @ is an alias to /src
 
+import Overview from "@/components/auth/Overview.vue";
+
 export default {
   name: "Home",
-  components: {},
+  components: {
+    Overview,
+  },
 
   async created() {},
 
@@ -262,12 +205,32 @@ export default {
         color: #666666;
         font-size: 16px;
         cursor: pointer;
+        display: flex;
+        height: 20px;
+
+        .name {
+          margin-right: 10px;
+        }
+
+        .quant {
+          font-size: 12px;
+          line-height: 20px;
+          background: #f3f3f3;
+          color: #666666;
+          border-radius: 50%;
+          width: 20px;
+          height: 20px;
+        }
+      }
+
+      .menu-item:hover {
+        border-bottom: solid 3px #cccccc;
       }
 
       .selected {
         box-sizing: content-box;
         font-weight: 500;
-        color: #44a8bd;
+        // color: #44a8bd;
         border-bottom: solid 3px #44a8bd;
       }
     }
@@ -275,123 +238,12 @@ export default {
 
   .content {
     height: 500px;
-
-    .overview-section {
-      display: flex;
-      flex-direction: column;
-      margin-bottom: 50px;
-
-      .heading {
-        color: #666666;
-        font-size: 18px;
-        font-weight: 300;
-        margin-bottom: 30px;
-        text-align: left;
-      }
-
-      .cards-group {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        row-gap: 30px;
-        column-gap: 20px;
-
-        .folder-card {
-          border: solid 1px #cccccc;
-          padding: 20px 30px;
-          border-radius: 5px;
-          display: flex;
-
-          .icon {
-            height: 26px;
-            height: 21px;
-            margin: auto 0;
-          }
-
-          .text-group {
-            display: flex;
-            flex-direction: column;
-            text-align: left;
-
-            margin: auto 0;
-            margin-left: 30px;
-
-            .title {
-              color: #666666;
-              font-size: 16px;
-              font-weight: 500;
-
-              padding: 0;
-              margin: 0;
-              margin-bottom: 15px;
-              white-space: nowrap;
-              overflow: hidden;
-              text-overflow: ellipsis;
-            }
-
-            .details {
-              color: #808080;
-              font-size: 14px;
-              font-weight: 400;
-
-              white-space: nowrap;
-              overflow: hidden;
-              text-overflow: ellipsis;
-            }
-          }
-        }
-
-        .set-card {
-          border: solid 1px #cccccc;
-          padding: 20px 30px;
-          border-radius: 5px;
-          display: flex;
-
-          .icon {
-            height: 22px;
-            height: 22px;
-            margin: auto 0;
-          }
-
-          .text-group {
-            display: flex;
-            flex-direction: column;
-            text-align: left;
-
-            margin: auto 0;
-            margin-left: 30px;
-
-            .title {
-              color: #666666;
-              font-size: 16px;
-              font-weight: 500;
-
-              padding: 0;
-              margin: 0;
-              margin-bottom: 15px;
-              white-space: nowrap;
-              overflow: hidden;
-              text-overflow: ellipsis;
-            }
-
-            .details {
-              color: #808080;
-              font-size: 14px;
-              font-weight: 400;
-
-              white-space: nowrap;
-              overflow: hidden;
-              text-overflow: ellipsis;
-            }
-          }
-        }
-      }
-    }
   }
 }
 
 .seperator {
   border-bottom: solid 1px #e6e6e6;
-  top: 270px;
+  top: 271px;
   width: 100%;
   position: absolute;
   z-index: -1;
