@@ -1,14 +1,17 @@
 <template>
   <div class="folders-section">
-    <!-- <div class="action-bar">
+    <div class="action-bar">
       <div class="search">
         <i class="fa fa-search" />
-        <input type="text" placeholder="Search" />
+        <input type="text" placeholder="Find a folder..." />
       </div>
 
-      <button>Sort</button>
-      <button>New</button>
-    </div> -->
+      <button class="sort-btn">
+        <div class="text">Sort</div>
+        <img class="icon" src="../../assets/sort_icon.png" alt="sort icon" />
+      </button>
+      <button class="new-btn">New +</button>
+    </div>
 
     <div class="cards-group">
       <div class="folder-card">
@@ -77,20 +80,25 @@ export default {
     display: flex;
     width: 100%;
     justify-content: space-between;
+    margin-bottom: 50px;
 
     .search {
+      width: 100%;
+      //   max-width: 550px;
       margin: auto 0;
-      margin-left: auto;
       display: flex;
       border: solid 1px #cccccc;
       border-radius: 8px;
       padding: 5px 5px;
       font-size: 14px;
       color: #666666;
+      margin-right: 20px;
 
       input {
         border: none;
         padding: 5px;
+        width: 100%;
+        color: #666666;
       }
 
       i {
@@ -124,6 +132,53 @@ export default {
         font-size: 14px;
         color: #666666;
       }
+    }
+
+    .sort-btn {
+      margin-left: auto;
+      display: flex;
+      width: 90px;
+      //   margin-left: 20px;
+      align-items: center;
+      justify-content: center;
+
+      border: solid 1px #b0b0b0;
+      background: #f3f3f3;
+      border-radius: 5px;
+
+      padding: 10px 5px;
+
+      cursor: pointer;
+
+      .text {
+        color: #4d4d4d;
+        text-align: left;
+        font-size: 14px;
+      }
+
+      .icon {
+        margin: auto 0;
+        margin-left: 10px;
+        width: 13px;
+        height: 9px;
+      }
+    }
+
+    .new-btn {
+      margin-left: 20px;
+      width: 90px;
+      font-weight: 400;
+
+      color: #ffffff;
+      border: solid 1px #44a8bd;
+      background: #44a8bd;
+      border-radius: 5px;
+
+      text-align: center;
+
+      padding: 10px 5px;
+      font-size: 14px;
+      cursor: pointer;
     }
   }
 

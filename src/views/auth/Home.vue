@@ -182,7 +182,7 @@ export default {
   }
 
   button {
-    color: #666666;
+    color: #4d4d4d;
     border: solid 1px #b0b0b0;
     background: #f3f3f3;
     border-radius: 5px;
