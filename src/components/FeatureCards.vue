@@ -22,7 +22,8 @@
 
       <h3 class="title">Revise</h3>
       <p class="body">
-        Using spaced repetition this mode can increase your rate of learning
+        Using spaced repetition this mode can dramatically increase your rate of
+        learning
       </p>
     </div>
 

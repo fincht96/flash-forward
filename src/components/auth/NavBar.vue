@@ -30,8 +30,8 @@
         "
       >
         <div class="item seperator-bottom">Signed in as <b>fincht96</b></div>
-        <a class="item" href=".">Your folders</a>
-        <a class="item" href=".">Your sets</a>
+        <a class="item" href="/folders">Your folders</a>
+        <a class="item" href="/sets">Your sets</a>
         <a class="item" href=".">Settings</a>
         <a class="item seperator-top" href="." v-on:click.prevent="onLogout"
           >Logout</a

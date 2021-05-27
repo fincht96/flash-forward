@@ -222,6 +222,7 @@ export default {
           color: #666666;
           font-size: 16px;
           font-weight: 500;
+          cursor: pointer;
 
           padding: 0;
           margin: 0;
@@ -229,6 +230,10 @@ export default {
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+        }
+
+        .title:hover {
+          text-decoration: underline;
         }
 
         .details {
