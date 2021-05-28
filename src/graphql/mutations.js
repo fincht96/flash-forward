@@ -11,7 +11,7 @@ export const createUser = /* GraphQL */ `
       firstName
       lastName
       bio
-      Location
+      location
       username
       folders {
         items {
@@ -42,7 +42,7 @@ export const updateUser = /* GraphQL */ `
       firstName
       lastName
       bio
-      Location
+      location
       username
       folders {
         items {
@@ -73,7 +73,7 @@ export const deleteUser = /* GraphQL */ `
       firstName
       lastName
       bio
-      Location
+      location
       username
       folders {
         items {
@@ -110,7 +110,7 @@ export const createFolder = /* GraphQL */ `
         firstName
         lastName
         bio
-        Location
+        location
         username
         folders {
           nextToken
@@ -153,7 +153,7 @@ export const updateFolder = /* GraphQL */ `
         firstName
         lastName
         bio
-        Location
+        location
         username
         folders {
           nextToken
@@ -196,7 +196,7 @@ export const deleteFolder = /* GraphQL */ `
         firstName
         lastName
         bio
-        Location
+        location
         username
         folders {
           nextToken
@@ -244,7 +244,7 @@ export const createSet = /* GraphQL */ `
           firstName
           lastName
           bio
-          Location
+          location
           username
           createdAt
           updatedAt
@@ -297,7 +297,7 @@ export const updateSet = /* GraphQL */ `
           firstName
           lastName
           bio
-          Location
+          location
           username
           createdAt
           updatedAt
@@ -350,7 +350,7 @@ export const deleteSet = /* GraphQL */ `
           firstName
           lastName
           bio
-          Location
+          location
           username
           createdAt
           updatedAt

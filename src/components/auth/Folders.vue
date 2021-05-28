@@ -1,4 +1,6 @@
 <template>
+  <CreateNewFolder v-if="showAddFolderModal" v-bind:on-close="hideNewFolder" />
+
   <div class="folders-section">
     <div class="action-bar">
       <div class="search">
@@ -10,7 +12,7 @@
         <div class="text">Sort</div>
         <img class="icon" src="../../assets/sort_icon.png" alt="sort icon" />
       </button>
-      <button class="new-btn">New +</button>
+      <button class="new-btn" v-on:click="addNewFolder">New +</button>
     </div>
 
     <div class="cards-group">
@@ -51,9 +53,13 @@
 // import store from "../../store";
 // @ is an alias to /src
 
+import CreateNewFolder from "@/components/auth/modal/CreateNewFolder.vue";
+
 export default {
   name: "Folders",
-  components: {},
+  components: {
+    CreateNewFolder,
+  },
 
   async created() {},
 
@@ -63,10 +69,22 @@ export default {
   },
 
   data() {
-    return {};
+    return {
+      showAddFolderModal: false,
+    };
   },
 
-  methods: {},
+  methods: {
+    addNewFolder() {
+      console.log("add new folder");
+      this.showAddFolderModal = true;
+    },
+
+    hideNewFolder() {
+      console.log("hide new folder");
+      this.showAddFolderModal = false;
+    },
+  },
 };
 </script>
 
@@ -164,6 +182,10 @@ export default {
       }
     }
 
+    .sort-btn:hover {
+      background-color: #e4e3e3;
+    }
+
     .new-btn {
       margin-left: 20px;
       width: 90px;
@@ -179,6 +201,10 @@ export default {
       padding: 10px 5px;
       font-size: 14px;
       cursor: pointer;
+    }
+
+    .new-btn:hover {
+      background-color: #398c9c;
     }
   }
 

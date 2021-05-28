@@ -49,7 +49,7 @@
               v-bind:class="selectedRoute.name === 'Folders' ? 'selected' : ''"
             >
               <div class="name">Folders</div>
-              <div class="quant">986</div>
+              <div class="quant">2</div>
             </div>
             <div
               class="menu-item"
@@ -193,6 +193,10 @@ export default {
     padding: 10px 5px;
     font-size: 14px;
     cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #e4e3e3;
   }
 
   .icon-text-group {

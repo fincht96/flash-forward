@@ -8,7 +8,7 @@ export const getUser = /* GraphQL */ `
       firstName
       lastName
       bio
-      Location
+      location
       username
       folders {
         items {
@@ -41,7 +41,7 @@ export const listUsers = /* GraphQL */ `
         firstName
         lastName
         bio
-        Location
+        location
         username
         folders {
           nextToken
@@ -67,7 +67,7 @@ export const getFolder = /* GraphQL */ `
         firstName
         lastName
         bio
-        Location
+        location
         username
         folders {
           nextToken
@@ -112,7 +112,7 @@ export const listFolders = /* GraphQL */ `
           firstName
           lastName
           bio
-          Location
+          location
           username
           createdAt
           updatedAt
@@ -147,7 +147,7 @@ export const getSet = /* GraphQL */ `
           firstName
           lastName
           bio
-          Location
+          location
           username
           createdAt
           updatedAt

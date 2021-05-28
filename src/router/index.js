@@ -3,6 +3,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeUnauth from "../views/unauth/Home.vue";
 import HomeAuth from "../views/auth/Home.vue";
 
+import FolderAuth from "../views/auth/Folder.vue";
+
 import { Auth } from "@aws-amplify/auth";
 
 // import store from "../store";
@@ -27,6 +29,15 @@ const routes = [
     path: "/folders",
     name: "Folders",
     component: HomeAuth,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+
+  {
+    path: "/folders/:id",
+    name: "Folder",
+    component: FolderAuth,
     meta: {
       requiresAuth: true,
     },

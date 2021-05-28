@@ -166,6 +166,10 @@ export default {
       }
     }
 
+    .sort-btn:hover {
+      background-color: #e4e3e3;
+    }
+
     .new-btn {
       margin-left: 20px;
       width: 90px;
@@ -181,6 +185,10 @@ export default {
       padding: 10px 5px;
       font-size: 14px;
       cursor: pointer;
+    }
+
+    .new-btn:hover {
+      background-color: #398c9c;
     }
   }
 

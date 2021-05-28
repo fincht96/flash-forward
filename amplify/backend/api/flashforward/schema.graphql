@@ -6,7 +6,7 @@ type User @model
   firstName: String
   lastName: String
   bio: String
-  Location: String
+  location: String
   username: String
   folders: [Folder] @connection(keyName: "byUser", fields: ["id"])
 }
