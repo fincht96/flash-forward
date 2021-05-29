@@ -94,22 +94,17 @@ const router = createRouter({
 });
 
 router.beforeResolve((to, from, next) => {
-  console.log("before resolve");
-
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     Auth.currentAuthenticatedUser()
       .then(() => {
-        console.log("here auth");
         next();
       })
       .catch(() => {
-        console.log("here");
         next({
           path: "/signin",
         });
       });
   } else {
-    console.log("here 2");
     next();
   }
 });

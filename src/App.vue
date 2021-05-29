@@ -1,4 +1,5 @@
 <template>
+  <!-- <CompleteAccount v-if="showCompleteAccount" /> -->
   <AuthNav v-if="user" />
   <UnauthNav v-else />
   <router-view />
@@ -6,9 +7,13 @@
 
 <script>
 import { Auth } from "@aws-amplify/auth";
+import { API, graphqlOperation } from "aws-amplify";
 import { Hub } from "aws-amplify";
 import AuthNav from "@/components/auth/NavBar.vue";
 import UnauthNav from "@/components/unauth/NavBar.vue";
+import { getUser } from "./graphql/queries.js";
+import { createUser } from "./graphql/mutations.js";
+// import CompleteAccount from "@/components/unauth/modal/CompleteAccount.vue";
 
 import store from "./store";
 
@@ -17,6 +22,7 @@ export default {
   components: {
     AuthNav,
     UnauthNav,
+    // CompleteAccount,
   },
   async created() {
     try {
@@ -26,19 +32,40 @@ export default {
       store.dispatch("setUser", null);
     }
 
-    // Auth.currentAuthenticatedUser()
-    //   .then((user) => {
-    //     // if (!store.state.user) {
-    //     //   this.$router.go();
-    //     // }
-    //     if (user) {
-    //       console.log("user signed in ");
-    //     } else {
-    //       console.log("user !signed in ");
-    //     }
-    //     store.dispatch("setUser", user);
-    //   })
-    //   .catch(() => console.log("Not signed in"));
+    Auth.currentAuthenticatedUser()
+      .then(async (user) => {
+        if (user) {
+          console.log("user signed in ");
+        } else {
+          console.log("user !signed in ");
+        }
+        store.dispatch("setUser", user);
+
+        let userProfile = await this.getUser(user.attributes.sub);
+
+        console.log("userProfile", userProfile);
+
+        if (!userProfile.data.getUser) {
+          this.showCompleteAccount = true;
+
+          // try {
+          //   let res = await this.createNewUser({
+          //     firstName: "Tom",
+          //     lastName: "Finch",
+          //     bio: "Just a software engineer",
+          //     location: "Macclesfield",
+          //     username: "fincht96",
+          //     id: user.attributes.sub,
+          //   });
+
+          //   console.log("res ", res);
+          // } catch (e) {
+          //   console.log("error creating user");
+          //   console.log(e);
+          // }
+        }
+      })
+      .catch(() => console.log("Not signed in"));
   },
 
   mounted() {
@@ -70,6 +97,7 @@ export default {
       todos: [],
       customState: null,
       isReady: false,
+      showCompleteAccount: false,
     };
   },
 
@@ -83,6 +111,30 @@ export default {
   methods: {
     onAuthEvent(payload) {
       console.log("auth event ", payload);
+    },
+
+    async getUser(id) {
+      const user = await API.graphql({
+        query: getUser,
+        variables: { id: id },
+      });
+
+      return user;
+    },
+
+    async createNewUser(user) {
+      let res = await API.graphql(
+        graphqlOperation(createUser, { input: user })
+      );
+
+      // await API.graphql({
+      //   query: createUser,
+      //   variables: {
+      //     input: userDetails,
+      //   },
+      // });
+
+      return res;
     },
   },
 };
