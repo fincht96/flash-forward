@@ -9,34 +9,54 @@
 
       <div class="entry">
         <div class="field-name">Username</div>
-        <input v-model="userName" class="field-input-large" type="text" />
+        <input
+          v-model="userDetails.username"
+          class="field-input-large"
+          type="text"
+        />
       </div>
 
       <div class="entry">
         <div>
           <div class="field-name">First name</div>
-          <input v-model="firstName" class="field-input-small" type="text" />
+          <input
+            v-model="userDetails.firstName"
+            class="field-input-small"
+            type="text"
+          />
         </div>
 
         <div>
           <div class="field-name">Last name</div>
-          <input v-model="lastName" class="field-input-small" type="text" />
+          <input
+            v-model="userDetails.lastName"
+            class="field-input-small"
+            type="text"
+          />
         </div>
       </div>
 
       <div class="entry">
         <div class="field-name">Bio</div>
-        <textarea v-model="bio" class="field-input-extra-large" type="text" />
+        <textarea
+          v-model="userDetails.bio"
+          class="field-input-extra-large"
+          type="text"
+        />
       </div>
 
       <div class="entry">
         <div class="field-name">Location</div>
-        <input v-model="location" class="field-input-large" type="text" />
+        <input
+          v-model="userDetails.location"
+          class="field-input-large"
+          type="text"
+        />
       </div>
 
       <button
         v-on:click="onComplete"
-        v-bind:class="{ disabled: !userName.length }"
+        v-bind:class="{ disabled: !userDetails.username.length }"
       >
         Complete
       </button>
@@ -53,7 +73,9 @@ export default {
 
   components: {},
 
-  async created() {},
+  async created() {
+    console.log("created complete account modal");
+  },
 
   mounted() {
     // console.log("home mounted, user", store.state.user);
@@ -62,19 +84,22 @@ export default {
 
   data() {
     return {
-      userName: "",
-      firstName: "",
-      lastName: "",
-      bio: "",
-      location: "",
+      userDetails: {
+        username: "",
+        firstName: "",
+        lastName: "",
+        bio: "",
+        location: "",
+      },
     };
   },
 
   methods: {
     onComplete() {
       // USE REGEX TO FIND INVALID CHARACTERS
-      if (this.name.length) {
+      if (this.userDetails.username.length) {
         console.log("on add folder");
+        this.$emit("completed", this.userDetails);
       }
     },
   },

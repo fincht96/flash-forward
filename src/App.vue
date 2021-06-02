@@ -1,7 +1,8 @@
 <template>
-  <!-- <CompleteAccount v-if="showCompleteAccount" /> -->
   <AuthNav v-if="user" />
   <UnauthNav v-else />
+
+  <CompleteAccount v-if="showCompleteAccount" @completed="handleCompleted" />
   <router-view />
 </template>
 
@@ -13,7 +14,7 @@ import AuthNav from "@/components/auth/NavBar.vue";
 import UnauthNav from "@/components/unauth/NavBar.vue";
 import { getUser } from "./graphql/queries.js";
 import { createUser } from "./graphql/mutations.js";
-// import CompleteAccount from "@/components/unauth/modal/CompleteAccount.vue";
+import CompleteAccount from "@/components/unauth/modal/CompleteAccount.vue";
 
 import store from "./store";
 
@@ -22,9 +23,11 @@ export default {
   components: {
     AuthNav,
     UnauthNav,
-    // CompleteAccount,
+    CompleteAccount,
   },
   async created() {
+    window.addEventListener("resize", this.myEventHandler);
+
     try {
       let user = await Auth.currentAuthenticatedUser();
       store.dispatch("setUser", user);
@@ -47,25 +50,13 @@ export default {
 
         if (!userProfile.data.getUser) {
           this.showCompleteAccount = true;
-
-          // try {
-          //   let res = await this.createNewUser({
-          //     firstName: "Tom",
-          //     lastName: "Finch",
-          //     bio: "Just a software engineer",
-          //     location: "Macclesfield",
-          //     username: "fincht96",
-          //     id: user.attributes.sub,
-          //   });
-
-          //   console.log("res ", res);
-          // } catch (e) {
-          //   console.log("error creating user");
-          //   console.log(e);
-          // }
         }
       })
       .catch(() => console.log("Not signed in"));
+  },
+
+  unmounted() {
+    window.removeEventListener("resize", this.myEventHandler);
   },
 
   mounted() {
@@ -98,6 +89,7 @@ export default {
       customState: null,
       isReady: false,
       showCompleteAccount: false,
+      windowWidth: window.innerWidth,
     };
   },
 
@@ -109,6 +101,38 @@ export default {
   },
 
   methods: {
+    async handleCompleted(userDetails) {
+      console.log("userDetails: ", userDetails);
+
+      try {
+        // let res = await this.createNewUser({
+        //   firstName: "Tom",
+        //   lastName: "Finch",
+        //   bio: "Just a software engineer",
+        //   location: "Macclesfield",
+        //   username: "fincht96",
+        //   id: user.attributes.sub,
+        // });
+
+        let res = await this.createNewUser({
+          ...userDetails,
+          ...{ id: this.user.attributes.sub },
+        });
+
+        console.log("res ", res);
+
+        this.showCompleteAccount = false;
+      } catch (e) {
+        console.log("error creating user");
+        console.log(e);
+      }
+    },
+
+    myEventHandler() {
+      this.windowWidth = window.innerWidth;
+      console.log("windowWidth: ", this.windowWidth);
+    },
+
     onAuthEvent(payload) {
       console.log("auth event ", payload);
     },
