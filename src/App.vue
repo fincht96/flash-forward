@@ -44,12 +44,15 @@ export default {
         }
         store.dispatch("setUser", user);
 
-        let userProfile = await this.getUser(user.attributes.sub);
+        let userDetails = await this.getUser(user.attributes.sub);
 
-        console.log("userProfile", userProfile);
+        console.log("userDetails", userDetails);
 
-        if (!userProfile.data.getUser) {
+        if (!userDetails.data.getUser) {
           this.showCompleteAccount = true;
+        } else {
+          console.log("userDetails", userDetails.data.getUser);
+          store.dispatch("setUserDetails", userDetails.data.getUser);
         }
       })
       .catch(() => console.log("Not signed in"));
@@ -114,12 +117,13 @@ export default {
         //   id: user.attributes.sub,
         // });
 
-        let res = await this.createNewUser({
+        const res = await this.createNewUser({
           ...userDetails,
           ...{ id: this.user.attributes.sub },
         });
 
         console.log("res ", res);
+        store.dispatch("setUserDetails", res.data.createUser);
 
         this.showCompleteAccount = false;
       } catch (e) {

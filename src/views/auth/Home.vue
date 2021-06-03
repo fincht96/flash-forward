@@ -8,9 +8,9 @@
           {{ initials }}
         </div>
 
-        <div class="username">fincht96</div>
+        <div class="username">{{ userDetails.username }}</div>
 
-        <div class="bio">Part flash card maker part biology student</div>
+        <div class="bio">{{ userDetails.bio }}</div>
 
         <button>Edit profile</button>
 
@@ -20,7 +20,7 @@
             src="../../assets/location_icon.png"
             alt="location icon"
           />
-          <div class="text">Manchester</div>
+          <div class="text">{{ userDetails.location }}</div>
         </div>
 
         <div class="icon-text-group">
@@ -29,7 +29,9 @@
             src="../../assets/calendar_icon.png"
             alt="location icon"
           />
-          <div class="text">Joined July 2021</div>
+          <div class="text">
+            {{ `Joined  ${formatDate(userDetails.createdAt)}` }}
+          </div>
         </div>
       </div>
 
@@ -78,6 +80,7 @@
 import Overview from "@/components/auth/Overview.vue";
 import Folders from "@/components/auth/Folders.vue";
 import Sets from "@/components/auth/Sets.vue";
+import store from "../../store";
 
 export default {
   name: "Home",
@@ -89,11 +92,30 @@ export default {
 
   async created() {
     this.selectedRoute = this.currentRoute;
+
+    this.unsubscribe = store.subscribe((mutation, state) => {
+      if (state.userDetails) {
+        this.userDetails = state.userDetails;
+      }
+    });
+  },
+
+  unmounted() {
+    this.unsubscribe();
   },
 
   watch: {
     currentRoute: function (val) {
       this.selectedRoute = val;
+    },
+
+    userDetails: function (newDetails) {
+      console.log("newDetails: ", newDetails);
+      if (newDetails) {
+        this.initials = `${newDetails.firstName.charAt(
+          0
+        )}${newDetails.lastName.charAt(0)}`;
+      }
     },
   },
 
@@ -105,6 +127,8 @@ export default {
 
   mounted() {
     console.log(this.currentRoute.name);
+    console.log("home store state ", store.state.user);
+    // this.userDetails = store.state.userDetails;
 
     // console.log("home mounted, user", store.state.user);
     // console.log("home mounted, username", store.state.user.username);
@@ -112,12 +136,39 @@ export default {
 
   data() {
     return {
-      initials: "TF",
+      initials: "",
       selectedRoute: "Overview",
+      userDetails: {},
+      unsubscribe: () => {},
     };
   },
 
-  methods: {},
+  methods: {
+    nth(d) {
+      if (d > 3 && d < 21) return "th";
+      switch (d % 10) {
+        case 1:
+          return "st";
+        case 2:
+          return "nd";
+        case 3:
+          return "rd";
+        default:
+          return "th";
+      }
+    },
+
+    formatDate(date) {
+      if (date) {
+        const jsDateTime = new Date(date);
+        const month = jsDateTime.toLocaleString("default", { month: "long" });
+        let day = jsDateTime.getDate();
+        return `${day}${this.nth(day)} ${month}`;
+      }
+
+      return "";
+    },
+  },
 };
 </script>
 
