@@ -48,7 +48,12 @@
 
       <br />
 
-      <button v-on:click="onAddFolder" v-bind:class="{ disabled: !name.length }">Done</button>
+      <button
+        v-on:click="onAddFolder"
+        v-bind:class="{ disabled: !name.length }"
+      >
+        Done
+      </button>
     </div>
   </div>
 </template>
@@ -56,6 +61,11 @@
 <script>
 // import store from "../../store";
 // @ is an alias to /src
+
+// import * as queries from "../../../graphql/queries.js";
+import * as mutations from "../../../graphql/mutations.js";
+import { API, graphqlOperation } from "aws-amplify";
+import store from "../../../store";
 
 export default {
   name: "CreateNewFolder",
@@ -82,10 +92,21 @@ export default {
   },
 
   methods: {
-    onAddFolder() {
+    async onAddFolder() {
       // USE REGEX TO FIND INVALID CHARACTERS
       if (this.name.length) {
         console.log("on add folder");
+        let res = await API.graphql(
+          graphqlOperation(mutations.createFolder, {
+            input: {
+              name: this.name,
+              description: this.description,
+              userID: store.state.user.attributes.sub,
+            },
+          })
+        );
+
+        console.log(res);
       }
     },
 
