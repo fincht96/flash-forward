@@ -12,7 +12,7 @@ import { API, graphqlOperation } from "aws-amplify";
 import { Hub } from "aws-amplify";
 import AuthNav from "@/components/auth/NavBar.vue";
 import UnauthNav from "@/components/unauth/NavBar.vue";
-import { getUser } from "./graphql/queries.js";
+import * as queries from "./graphql/queries.js";
 import { createUser } from "./graphql/mutations.js";
 import CompleteAccount from "@/components/unauth/modal/CompleteAccount.vue";
 
@@ -53,6 +53,9 @@ export default {
         } else {
           console.log("userDetails", userDetails.data.getUser);
           store.dispatch("setUserDetails", userDetails.data.getUser);
+
+          let res = await this.getFolders(user.attributes.sub);
+          console.log("getFolders: ", res);
         }
       })
       .catch(() => console.log("Not signed in"));
@@ -143,11 +146,30 @@ export default {
 
     async getUser(id) {
       const user = await API.graphql({
-        query: getUser,
+        query: queries.getUser,
         variables: { id: id },
       });
 
       return user;
+    },
+
+    async getFolders(uID) {
+      // let filter = {
+      //   name: { eq: "Chemistry" },
+      // };
+
+      let filter = {
+        userID: { eq: uID },
+      };
+
+      const folders = await API.graphql({
+        query: queries.listFolders,
+        //
+        variables: { limit: 2, filter: filter },
+      });
+      console.log(uID);
+
+      return folders;
     },
 
     async createNewUser(user) {
