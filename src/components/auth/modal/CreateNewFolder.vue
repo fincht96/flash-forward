@@ -95,18 +95,25 @@ export default {
     async onAddFolder() {
       // USE REGEX TO FIND INVALID CHARACTERS
       if (this.name.length) {
-        console.log("on add folder");
-        let res = await API.graphql(
-          graphqlOperation(mutations.createFolder, {
-            input: {
-              name: this.name,
-              description: this.description,
-              userID: store.state.user.attributes.sub,
-            },
-          })
-        );
+        try {
+          console.log("on add folder");
+          let res = await API.graphql(
+            graphqlOperation(mutations.createFolder, {
+              input: {
+                name: this.name,
+                description: this.description,
+                userID: store.state.user.attributes.sub,
+              },
+            })
+          );
 
-        console.log(res);
+          store.dispatch("addFolder", res.data.createFolder);
+
+          console.log(res);
+          this.onClose();
+        } catch (e) {
+          console.log(e);
+        }
       }
     },
 

@@ -3,7 +3,9 @@ import { createStore } from "vuex";
 export default createStore({
   state: {
     user: null,
-    userDetails:null
+    userDetails:null,
+    folders: [],
+    sets: []
   },
   mutations: {
     setUser(state, user) {
@@ -13,6 +15,11 @@ export default createStore({
     setUserDetails(state, userDetails) {
       state.userDetails = userDetails;
     },
+
+    addFolder(state, folder) {
+      state.folders.push(folder);
+    },
+
   },
   actions: {
     setUser(context, user){
@@ -21,6 +28,10 @@ export default createStore({
 
     setUserDetails(context, userdetails){
       context.commit('setUserDetails', userdetails)
+    },
+
+    addFolder(context, folder){
+      context.commit('addFolder', folder)
     }
   },
   modules: {

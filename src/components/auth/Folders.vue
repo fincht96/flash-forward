@@ -16,32 +16,18 @@
     </div>
 
     <div class="cards-group">
-      <div class="folder-card">
+      <div class="folder-card" v-for="folder in folders" :key="folder.id">
         <img
           class="icon"
           src="../../assets/folder_icon.png"
           alt="folder icon"
         />
         <div class="text-group">
-          <h3 class="title">Biology Chapter 2</h3>
+          <h3 class="title">{{ folder.name }}</h3>
           <div class="details">
-            10 sets
+            {{ folder.sets.length ? folder.sets.length : 0 }} sets
             <span class="spacer">|</span>
-            Updated 30 mins ago
-          </div>
-        </div>
-      </div>
-
-      <div class="folder-card">
-        <img
-          class="icon"
-          src="../../assets/folder_icon.png"
-          alt="folder icon"
-        />
-        <div class="text-group">
-          <h3 class="title">Physics Quantum Mechanics</h3>
-          <div class="details">
-            10 sets <span class="spacer">|</span> Updated 2 hours ago
+            {{ formatLastUpdated(folder.updatedAt) }}
           </div>
         </div>
       </div>
@@ -50,7 +36,7 @@
 </template>
 
 <script>
-// import store from "../../store";
+import store from "../../store";
 // @ is an alias to /src
 
 import CreateNewFolder from "@/components/auth/modal/CreateNewFolder.vue";
@@ -61,9 +47,19 @@ export default {
     CreateNewFolder,
   },
 
-  async created() {},
+  async created() {
+    this.unsubscribe = store.subscribe((mutation, state) => {
+      console.log("folders state", state);
+      this.folders = state.folders;
+    });
+  },
+
+  beforeUnmount() {
+    this.unsubscribe();
+  },
 
   mounted() {
+    this.folders = store.state.folders;
     // console.log("home mounted, user", store.state.user);
     // console.log("home mounted, username", store.state.user.username);
   },
@@ -71,6 +67,7 @@ export default {
   data() {
     return {
       showAddFolderModal: false,
+      folders: [],
     };
   },
 
@@ -83,6 +80,55 @@ export default {
     hideNewFolder() {
       console.log("hide new folder");
       this.showAddFolderModal = false;
+    },
+
+    formatDate(date) {
+      let formattedDate = new Date(date);
+      let day = formattedDate.getDate();
+      let month = formattedDate.getMonth() + 1;
+      let year = formattedDate.getFullYear() - 2000;
+
+      if (day < 10) {
+        day = `0${day}`;
+      }
+
+      if (month < 10) {
+        month = `0${month}`;
+      }
+
+      return `${day}/${month}/${year}`;
+    },
+
+    formatLastUpdated(dateUpdated) {
+      const jsDateTime = new Date(dateUpdated);
+      const timeElapsedMs = Date.now() - jsDateTime.getTime();
+
+      const timeElapsedSecs = timeElapsedMs / 1000;
+      const timeElapsedMins = timeElapsedSecs / 60;
+      const timeElapsedHours = timeElapsedMins / 60;
+      const timeElapsedDays = timeElapsedHours / 24;
+
+      if (timeElapsedSecs < 60) {
+        let units = timeElapsedSecs < 2 ? "second" : "seconds";
+        return `Updated ${Math.trunc(timeElapsedSecs)} ${units} ago`;
+      }
+
+      if (timeElapsedMins < 60) {
+        let units = timeElapsedMins < 2 ? "minute" : "minutes";
+        return `Updated ${Math.trunc(timeElapsedMins)} ${units} ago`;
+      }
+
+      if (timeElapsedHours < 24) {
+        let units = timeElapsedHours < 2 ? "hour" : "hours";
+        return `Updated ${Math.trunc(timeElapsedHours)} ${units} ago`;
+      }
+
+      if (timeElapsedDays < 30) {
+        let units = timeElapsedDays < 2 ? "day" : "days";
+        return `Updated ${Math.trunc(timeElapsedDays)} ${units} ago`;
+      }
+
+      return `Updated ${this.formatDate(jsDateTime)}`;
     },
   },
 };

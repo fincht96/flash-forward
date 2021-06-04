@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 
 import HomeUnauth from "../views/unauth/Home.vue";
 import HomeAuth from "../views/auth/Home.vue";
+import CreateNewSet from "../views/auth/CreateNewSet.vue";
 
 import FolderAuth from "../views/auth/Folder.vue";
 
@@ -38,6 +39,15 @@ const routes = [
     path: "/folders/:id",
     name: "Folder",
     component: FolderAuth,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+
+  {
+    path: "/sets/create",
+    name: "Create Set",
+    component: CreateNewSet,
     meta: {
       requiresAuth: true,
     },

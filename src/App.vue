@@ -37,25 +37,23 @@ export default {
 
     Auth.currentAuthenticatedUser()
       .then(async (user) => {
-        if (user) {
-          console.log("user signed in ");
-        } else {
-          console.log("user !signed in ");
-        }
         store.dispatch("setUser", user);
 
         let userDetails = await this.getUser(user.attributes.sub);
 
-        console.log("userDetails", userDetails);
-
         if (!userDetails.data.getUser) {
           this.showCompleteAccount = true;
         } else {
-          console.log("userDetails", userDetails.data.getUser);
           store.dispatch("setUserDetails", userDetails.data.getUser);
 
           let res = await this.getFolders(user.attributes.sub);
-          console.log("getFolders: ", res);
+
+          // console.log("getFolders: ", res);
+          res.data.listFolders.items.forEach((folder) => {
+            store.dispatch("addFolder", folder);
+          });
+
+          console.log(store.state.folders);
         }
       })
       .catch(() => console.log("Not signed in"));
