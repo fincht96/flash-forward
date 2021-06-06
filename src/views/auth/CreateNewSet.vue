@@ -3,9 +3,11 @@
     <div class="columns">
       <div class="left">
         <div class="side-menu">
-          <a class="back-link">
-            <img class="icon" src="../../assets/tick.png" alt="set icon" />
-            <h1 class="text">Back</h1>
+          <a class="section">
+            <div class="back-group" v-on:click="goBack">
+              <img class="icon" src="../../assets/tick.png" alt="set icon" />
+              <h1 class="text">Back</h1>
+            </div>
           </a>
         </div>
       </div>
@@ -18,13 +20,19 @@
           </div>
 
           <div class="property">
-            <div class="name">TITLE</div>
-            <input class="field" type="text" placeholder="e.g. Immune System" />
+            <div class="name">NAME</div>
+            <input
+              v-model="set.name"
+              class="field"
+              type="text"
+              placeholder="e.g. Immune System"
+            />
           </div>
 
           <div class="property">
             <div class="name">DESCRIPTION</div>
             <input
+              v-model="set.description"
               class="field"
               type="text"
               placeholder="e.g. This folder contains all sections..."
@@ -33,17 +41,23 @@
 
           <div class="property">
             <div class="name">FOLDER</div>
-            <input
-              class="field"
-              type="text"
-              placeholder="e.g. Biology"
-              style="color: #44a8bd"
-            />
+
+            <select class="field" v-model="set.folder">
+              <option value="null">None</option>
+
+              <option
+                v-for="(item, index) in folders"
+                :key="index"
+                :value="item.id"
+              >
+                {{ item.name }}
+              </option>
+            </select>
           </div>
         </div>
       </div>
       <div class="right">
-        <button class="create-btn">Create</button>
+        <button class="create-btn" v-on:click="createSet">Create</button>
       </div>
     </div>
 
@@ -52,11 +66,13 @@
       <div class="middle background">
         <div class="content">
           <div class="spacer" />
-          <h3 class="sub-heading">Cards in this set (1)</h3>
+          <h3 class="sub-heading">
+            Cards in this set ({{ set.cards.length }})
+          </h3>
 
-          <div class="card">
+          <div class="card" v-for="(card, index) in set.cards" :key="index">
             <div class="top-row">
-              <div class="index">1</div>
+              <div class="index">{{ index + 1 }}</div>
               <div class="action-icons">
                 <img
                   class="move"
@@ -67,6 +83,7 @@
                   class="delete"
                   src="../../assets/delete_icon.png"
                   alt="delete icon"
+                  v-on:click="removeCard(index)"
                 />
               </div>
             </div>
@@ -74,11 +91,12 @@
             <div class="bottom-row">
               <div class="section">
                 <div class="heading">QUESTION</div>
-                <div class="body">
-                  Monocytes move from the systemic circulatory system into
-                  general connective tissues, where they differentiate into what
-                  phagocytic cell type?
-                </div>
+                <textarea
+                  class="body"
+                  v-model="card.question"
+                  placeholder="Question"
+                />
+
                 <img
                   class="upload-image"
                   src="../../assets/upload_image_icon.png"
@@ -88,7 +106,11 @@
 
               <div class="section">
                 <div class="heading">ANSWER</div>
-                <div class="body">Macrophage</div>
+                <textarea
+                  class="body"
+                  v-model="card.answer"
+                  placeholder="Answer"
+                />
                 <img
                   class="upload-image"
                   src="../../assets/upload_image_icon.png"
@@ -97,6 +119,8 @@
               </div>
             </div>
           </div>
+
+          <button class="add-new-card" v-on:click="addCard">+ Add Card</button>
         </div>
         <div class="spacer" />
       </div>
@@ -108,6 +132,9 @@
 <script>
 // import store from "../../store";
 // @ is an alias to /src
+import * as mutations from "../../graphql/mutations.js";
+import { API, graphqlOperation } from "aws-amplify";
+import store from "../../store";
 
 export default {
   name: "CreateNewSet",
@@ -122,14 +149,74 @@ export default {
   },
 
   mounted() {
+    this.folders = store.state.folders;
     console.log(this.currentRoute.name);
   },
 
   data() {
-    return {};
+    return {
+      set: {
+        name: "",
+        description: "",
+        folder: null,
+        cards: [],
+      },
+
+      folders: [],
+    };
   },
 
-  methods: {},
+  methods: {
+    async createSet() {
+      console.log(this.set);
+
+      if (this.set.name.length) {
+        try {
+          console.log("on add set");
+          let res = await API.graphql(
+            graphqlOperation(mutations.createSet, {
+              input: {
+                name: this.set.name,
+                description: this.set.description,
+                folderID: this.set.folder,
+                userID: store.state.user.attributes.sub,
+              },
+            })
+          );
+
+          // need to add cards as well
+
+          store.dispatch("addSet", res.data.createSet);
+
+          console.log(res);
+
+          this.goBack();
+          // this.onClose();
+        } catch (e) {
+          console.log(e);
+        }
+      }
+    },
+
+    addCard() {
+      this.set.cards.push({
+        question: "",
+        answer: "",
+        flagged: "",
+        setID: "",
+      });
+      console.log("add card");
+    },
+
+    removeCard(index) {
+      console.log("remove index ", index);
+      this.set.cards.splice(index, 1);
+    },
+
+    goBack() {
+      this.$router.go(-1);
+    },
+  },
 };
 </script>
 
@@ -150,25 +237,29 @@ export default {
       border-right: solid 1px #cccccc;
       height: 100%;
 
-      .back-link {
+      .section {
         display: flex;
+        justify-content: center;
         border-bottom: solid 1px #cccccc;
         padding: 30px 10px;
-        cursor: pointer;
 
-        .icon {
-          width: 10px;
-          height: 16px;
-          margin: auto 0;
-          margin-left: 20px;
-        }
+        .back-group {
+          display: flex;
+          cursor: pointer;
 
-        .text {
-          color: #666666;
-          font-weight: 400;
-          font-size: 16px;
-          margin: auto 0;
-          margin-left: 10px;
+          .icon {
+            width: 10px;
+            height: 16px;
+            margin: auto 0;
+          }
+
+          .text {
+            color: #666666;
+            font-weight: 400;
+            font-size: 16px;
+            margin: auto 0;
+            margin-left: 20px;
+          }
         }
       }
     }
@@ -219,6 +310,7 @@ export default {
         }
 
         .field {
+          margin-top: 10px;
           text-align: left;
           -webkit-appearance: none;
           color: #666666;
@@ -307,6 +399,7 @@ export default {
               padding: 5px;
               border-bottom: 1px solid #666666;
               font-size: 12px;
+              margin: 0;
             }
 
             .body {
@@ -317,6 +410,9 @@ export default {
               margin: auto 0;
               margin-top: 10px;
               margin-bottom: 30px;
+              resize: none;
+              font-family: "Roboto", sans-serif;
+              border: none;
             }
 
             .upload-image {
@@ -327,6 +423,21 @@ export default {
             }
           }
         }
+      }
+
+      .add-new-card {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        background: #44a8bd;
+        color: #ffffff;
+        width: 100%;
+        padding: 20px 10px;
+        margin: 50px 0;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
       }
     }
   }

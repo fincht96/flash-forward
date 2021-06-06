@@ -46,7 +46,7 @@ const routes = [
 
   {
     path: "/sets/create",
-    name: "Create Set",
+    name: "CreateSet",
     component: CreateNewSet,
     meta: {
       requiresAuth: true,

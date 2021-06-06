@@ -2,7 +2,7 @@
   <div class="home">
     <div class="seperator"></div>
 
-    <div class="layout">
+    <div class="layout" v-if="userDetails">
       <div class="profile-menu">
         <div class="user-icon">
           {{ initials }}
@@ -128,7 +128,7 @@ export default {
   mounted() {
     console.log(this.currentRoute.name);
     console.log("home store state ", store.state.user);
-    // this.userDetails = store.state.userDetails;
+    this.userDetails = store.state.userDetails;
 
     // console.log("home mounted, user", store.state.user);
     // console.log("home mounted, username", store.state.user.username);

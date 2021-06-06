@@ -41,6 +41,8 @@ export default {
 
         let userDetails = await this.getUser(user.attributes.sub);
 
+        console.log("user details ", userDetails);
+
         if (!userDetails.data.getUser) {
           this.showCompleteAccount = true;
         } else {
@@ -48,12 +50,22 @@ export default {
 
           let res = await this.getFolders(user.attributes.sub);
 
-          // console.log("getFolders: ", res);
           res.data.listFolders.items.forEach((folder) => {
             store.dispatch("addFolder", folder);
           });
 
-          console.log(store.state.folders);
+          res = await this.getSets(user.attributes.sub);
+
+          console.log(res);
+
+          res.data.listSets.items.forEach((set) => {
+            store.dispatch("addSet", set);
+          });
+
+
+
+
+          
         }
       })
       .catch(() => console.log("Not signed in"));
@@ -168,6 +180,25 @@ export default {
       console.log(uID);
 
       return folders;
+    },
+
+    async getSets(uID) {
+      // let filter = {
+      //   name: { eq: "Chemistry" },
+      // };
+
+      let filter = {
+        userID: { eq: uID },
+      };
+
+      const sets = await API.graphql({
+        query: queries.listSets,
+        //
+        variables: { limit: 2, filter: filter },
+      });
+      console.log(uID);
+
+      return sets;
     },
 
     async createNewUser(user) {

@@ -82,6 +82,7 @@ export const getFolder = /* GraphQL */ `
           name
           description
           folderID
+          userID
           createdAt
           updatedAt
           owner
@@ -136,6 +137,7 @@ export const getSet = /* GraphQL */ `
       name
       description
       folderID
+      userID
       folder {
         id
         name
@@ -191,6 +193,7 @@ export const listSets = /* GraphQL */ `
         name
         description
         folderID
+        userID
         folder {
           id
           name
@@ -222,6 +225,7 @@ export const getCard = /* GraphQL */ `
         name
         description
         folderID
+        userID
         folder {
           id
           name
@@ -263,6 +267,7 @@ export const listCards = /* GraphQL */ `
           name
           description
           folderID
+          userID
           createdAt
           updatedAt
           owner

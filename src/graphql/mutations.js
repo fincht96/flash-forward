@@ -125,6 +125,7 @@ export const createFolder = /* GraphQL */ `
           name
           description
           folderID
+          userID
           createdAt
           updatedAt
           owner
@@ -168,6 +169,7 @@ export const updateFolder = /* GraphQL */ `
           name
           description
           folderID
+          userID
           createdAt
           updatedAt
           owner
@@ -211,6 +213,7 @@ export const deleteFolder = /* GraphQL */ `
           name
           description
           folderID
+          userID
           createdAt
           updatedAt
           owner
@@ -233,6 +236,7 @@ export const createSet = /* GraphQL */ `
       name
       description
       folderID
+      userID
       folder {
         id
         name
@@ -286,6 +290,7 @@ export const updateSet = /* GraphQL */ `
       name
       description
       folderID
+      userID
       folder {
         id
         name
@@ -339,6 +344,7 @@ export const deleteSet = /* GraphQL */ `
       name
       description
       folderID
+      userID
       folder {
         id
         name
@@ -395,6 +401,7 @@ export const createCard = /* GraphQL */ `
         name
         description
         folderID
+        userID
         folder {
           id
           name
@@ -434,6 +441,7 @@ export const updateCard = /* GraphQL */ `
         name
         description
         folderID
+        userID
         folder {
           id
           name
@@ -473,6 +481,7 @@ export const deleteCard = /* GraphQL */ `
         name
         description
         folderID
+        userID
         folder {
           id
           name

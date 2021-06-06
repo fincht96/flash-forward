@@ -10,11 +10,23 @@
         <div class="text">Sort</div>
         <img class="icon" src="../../assets/sort_icon.png" alt="sort icon" />
       </button>
-      <button class="new-btn">New +</button>
+      <button class="new-btn" v-on:click="createSet">New +</button>
     </div>
 
     <div class="cards-group">
-      <div class="set-card">
+      <div class="set-card" v-for="set in sets" :key="set.id">
+        <img class="icon" src="../../assets/set_icon.png" alt="set icon" />
+        <div class="text-group">
+          <h3 class="title">{{ set.name }}</h3>
+          <div class="details">
+            <!-- {{ sets.cards.length ? set.cards.length : 0 }} cards -->
+            <span class="spacer">|</span>
+            {{ formatLastUpdated(set.updatedAt) }}
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="set-card">
         <img class="icon" src="../../assets/set_icon.png" alt="folder icon" />
         <div class="text-group">
           <h3 class="title">Immune system</h3>
@@ -44,12 +56,13 @@
             78 cards <span class="spacer">|</span> Updated 23rd Mar 2020
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
 
 <script>
+import store from "../../store";
 // import store from "../../store";
 // @ is an alias to /src
 
@@ -57,18 +70,82 @@ export default {
   name: "Sets",
   components: {},
 
-  async created() {},
+  async created() {
+    this.unsubscribe = store.subscribe((mutation, state) => {
+      console.log("sets state", state.sets);
+      this.sets = state.sets;
+    });
+  },
 
   mounted() {
+    this.sets = store.state.sets;
+
+    console.log("sets in Sets", this.sets);
+
     // console.log("home mounted, user", store.state.user);
     // console.log("home mounted, username", store.state.user.username);
   },
 
   data() {
-    return {};
+    return {
+      sets: [],
+    };
   },
 
-  methods: {},
+  methods: {
+    createSet() {
+      this.$router.push("/sets/create");
+    },
+
+    formatDate(date) {
+      let formattedDate = new Date(date);
+      let day = formattedDate.getDate();
+      let month = formattedDate.getMonth() + 1;
+      let year = formattedDate.getFullYear() - 2000;
+
+      if (day < 10) {
+        day = `0${day}`;
+      }
+
+      if (month < 10) {
+        month = `0${month}`;
+      }
+
+      return `${day}/${month}/${year}`;
+    },
+
+    formatLastUpdated(dateUpdated) {
+      const jsDateTime = new Date(dateUpdated);
+      const timeElapsedMs = Date.now() - jsDateTime.getTime();
+
+      const timeElapsedSecs = timeElapsedMs / 1000;
+      const timeElapsedMins = timeElapsedSecs / 60;
+      const timeElapsedHours = timeElapsedMins / 60;
+      const timeElapsedDays = timeElapsedHours / 24;
+
+      if (timeElapsedSecs < 60) {
+        let units = timeElapsedSecs < 2 ? "second" : "seconds";
+        return `Updated ${Math.trunc(timeElapsedSecs)} ${units} ago`;
+      }
+
+      if (timeElapsedMins < 60) {
+        let units = timeElapsedMins < 2 ? "minute" : "minutes";
+        return `Updated ${Math.trunc(timeElapsedMins)} ${units} ago`;
+      }
+
+      if (timeElapsedHours < 24) {
+        let units = timeElapsedHours < 2 ? "hour" : "hours";
+        return `Updated ${Math.trunc(timeElapsedHours)} ${units} ago`;
+      }
+
+      if (timeElapsedDays < 30) {
+        let units = timeElapsedDays < 2 ? "day" : "days";
+        return `Updated ${Math.trunc(timeElapsedDays)} ${units} ago`;
+      }
+
+      return `Updated ${this.formatDate(jsDateTime)}`;
+    },
+  },
 };
 </script>
 

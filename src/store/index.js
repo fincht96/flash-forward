@@ -20,6 +20,10 @@ export default createStore({
       state.folders.push(folder);
     },
 
+    addSet(state, set) {
+      state.sets.push(set);
+    },
+
   },
   actions: {
     setUser(context, user){
@@ -32,6 +36,10 @@ export default createStore({
 
     addFolder(context, folder){
       context.commit('addFolder', folder)
+    },
+
+    addSet(context, set){
+      context.commit('addSet', set)
     }
   },
   modules: {
