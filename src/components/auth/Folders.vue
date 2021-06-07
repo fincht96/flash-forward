@@ -25,7 +25,7 @@
         <div class="text-group">
           <h3 class="title">{{ folder.name }}</h3>
           <div class="details">
-            {{ folder.sets.length ? folder.sets.length : 0 }} sets
+            {{ folder.sets.items.length ? folder.sets.items.length : 0 }} sets
             <span class="spacer">|</span>
             {{ formatLastUpdated(folder.updatedAt) }}
           </div>

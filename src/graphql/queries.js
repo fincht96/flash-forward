@@ -120,6 +120,9 @@ export const listFolders = /* GraphQL */ `
           owner
         }
         sets {
+          items {
+            id
+          }
           nextToken
         }
         createdAt
@@ -205,6 +208,9 @@ export const listSets = /* GraphQL */ `
           owner
         }
         cards {
+          items {
+            id
+          }
           nextToken
         }
         createdAt

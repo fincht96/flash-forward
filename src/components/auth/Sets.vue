@@ -19,7 +19,8 @@
         <div class="text-group">
           <h3 class="title">{{ set.name }}</h3>
           <div class="details">
-            <!-- {{ sets.cards.length ? set.cards.length : 0 }} cards -->
+            {{ set.cards.items ? set.cards.items.length : 0 }} cards
+
             <span class="spacer">|</span>
             {{ formatLastUpdated(set.updatedAt) }}
           </div>
@@ -72,7 +73,6 @@ export default {
 
   async created() {
     this.unsubscribe = store.subscribe((mutation, state) => {
-      console.log("sets state", state.sets);
       this.sets = state.sets;
     });
   },
@@ -80,7 +80,7 @@ export default {
   mounted() {
     this.sets = store.state.sets;
 
-    console.log("sets in Sets", this.sets);
+    console.log("this.sets", this.sets);
 
     // console.log("home mounted, user", store.state.user);
     // console.log("home mounted, username", store.state.user.username);

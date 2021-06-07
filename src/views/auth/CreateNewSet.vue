@@ -184,14 +184,29 @@ export default {
             })
           );
 
-          // need to add cards as well
+          const setID = res.data.createSet.id;
+
+          this.set.cards.forEach(async (card) => {
+            // need to add cards as well
+            let res = await API.graphql(
+              graphqlOperation(mutations.createCard, {
+                input: {
+                  question: card.question,
+                  answer: card.answer,
+                  setID: setID,
+                  flagged: false,
+                },
+              })
+            );
+
+            console.log(res);
+          });
 
           store.dispatch("addSet", res.data.createSet);
 
           console.log(res);
 
           this.goBack();
-          // this.onClose();
         } catch (e) {
           console.log(e);
         }

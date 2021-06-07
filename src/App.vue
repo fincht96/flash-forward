@@ -41,34 +41,31 @@ export default {
 
         let userDetails = await this.getUser(user.attributes.sub);
 
-        console.log("user details ", userDetails);
-
         if (!userDetails.data.getUser) {
           this.showCompleteAccount = true;
         } else {
           store.dispatch("setUserDetails", userDetails.data.getUser);
 
-          let res = await this.getFolders(user.attributes.sub);
+          console.log("fuser details", userDetails);
 
-          res.data.listFolders.items.forEach((folder) => {
+          let folderList = await this.getFolders(user.attributes.sub);
+
+          console.log("folder list", folderList);
+
+          folderList.data.listFolders.items.forEach((folder) => {
             store.dispatch("addFolder", folder);
           });
 
-          res = await this.getSets(user.attributes.sub);
+          let setList = await this.getSets(user.attributes.sub);
 
-          console.log(res);
+          console.log("set list", setList);
 
-          res.data.listSets.items.forEach((set) => {
+          setList.data.listSets.items.forEach((set) => {
             store.dispatch("addSet", set);
           });
-
-
-
-
-          
         }
       })
-      .catch(() => console.log("Not signed in"));
+      .catch((e) => console.log(e));
   },
 
   unmounted() {
@@ -118,24 +115,12 @@ export default {
 
   methods: {
     async handleCompleted(userDetails) {
-      console.log("userDetails: ", userDetails);
-
       try {
-        // let res = await this.createNewUser({
-        //   firstName: "Tom",
-        //   lastName: "Finch",
-        //   bio: "Just a software engineer",
-        //   location: "Macclesfield",
-        //   username: "fincht96",
-        //   id: user.attributes.sub,
-        // });
-
         const res = await this.createNewUser({
           ...userDetails,
           ...{ id: this.user.attributes.sub },
         });
 
-        console.log("res ", res);
         store.dispatch("setUserDetails", res.data.createUser);
 
         this.showCompleteAccount = false;
@@ -147,12 +132,11 @@ export default {
 
     myEventHandler() {
       this.windowWidth = window.innerWidth;
-      console.log("windowWidth: ", this.windowWidth);
     },
 
-    onAuthEvent(payload) {
-      console.log("auth event ", payload);
-    },
+    // onAuthEvent(payload) {
+
+    // },
 
     async getUser(id) {
       const user = await API.graphql({
@@ -175,9 +159,8 @@ export default {
       const folders = await API.graphql({
         query: queries.listFolders,
         //
-        variables: { limit: 2, filter: filter },
+        variables: { limit: 1000, filter: filter },
       });
-      console.log(uID);
 
       return folders;
     },
@@ -194,9 +177,8 @@ export default {
       const sets = await API.graphql({
         query: queries.listSets,
         //
-        variables: { limit: 2, filter: filter },
+        variables: { limit: 1000, filter: filter },
       });
-      console.log(uID);
 
       return sets;
     },

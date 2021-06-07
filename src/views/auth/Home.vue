@@ -110,7 +110,7 @@ export default {
     },
 
     userDetails: function (newDetails) {
-      console.log("newDetails: ", newDetails);
+   
       if (newDetails) {
         this.initials = `${newDetails.firstName.charAt(
           0
@@ -126,8 +126,8 @@ export default {
   },
 
   mounted() {
-    console.log(this.currentRoute.name);
-    console.log("home store state ", store.state.user);
+ 
+
     this.userDetails = store.state.userDetails;
 
     // console.log("home mounted, user", store.state.user);
