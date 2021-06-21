@@ -1,29 +1,5 @@
 # flash-forward
 
-## Project setup
-```
-npm install
-```
+Checkout a demo of the application in the early stages of development.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your unit tests
-```
-npm run test:unit
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/7UfZyWiIcw8/0.jpg)](https://www.youtube.com/watch?v=7UfZyWiIcw8)
